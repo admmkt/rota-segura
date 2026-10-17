@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; connect-src 'self' https://*.googleapis.com https://*.workers.dev; frame-src https://rota-segura-3a7d8.firebaseapp.com; img-src 'self' data:; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Rota Segura</title>
+<meta name="description" content="Botão de pânico que dispara um alarme de sirene no celular de quem você confia, com sua localização.">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="wrap top">
+  <strong class="logo">Rota Segura</strong>
+  <nav><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="#assinar">Minha conta</a></nav>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <h1>Um toque. Quem você confia é avisado na hora.</h1>
+    <p>O Rota Segura coloca um botão de pânico na sua tela. Ao tocar, seus contatos recebem um <b>alarme de sirene em tela cheia</b>, mesmo com o celular no silencioso, com o link da sua localização no mapa.</p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar para Android</a>
+      <a class="btn ghost" href="#assinar">Assinar plano completo</a>
+    </div>
+  </section>
+
+  <section id="como" class="wrap">
+    <h2>Como funciona</h2>
+    <ol class="steps">
+      <li><b>Crie sua conta</b> no app e adicione seus contatos pelo e-mail.</li>
+      <li><b>O contato aceita</b> o pedido no app dele — só quem aceitou recebe seus alertas.</li>
+      <li><b>Em perigo, toque no botão.</b> O celular do contato toca a sirene, pisca em vermelho e mostra onde você está.</li>
+    </ol>
+  </section>
+
+  <section id="planos" class="wrap">
+    <h2>Planos</h2>
+    <div class="plans">
+      <div class="plan">
+        <h3>Gratuito</h3>
+        <p class="price">R$ 0</p>
+        <p>Recebe os alertas dos seus contatos. Ideal para quem cuida.</p>
+      </div>
+      <div class="plan featured">
+        <h3>Completo</h3>
+        <p class="price">R$ 9,90<small>/mês</small></p>
+        <p>Botão de pânico, envio com localização e todos os recursos de recebimento. Cancele quando quiser.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="assinar" class="wrap">
+    <h2>Minha conta</h2>
+    <div class="card">
+      <form id="login">
+        <p>Entre com a <b>mesma conta do app</b>. A assinatura fica ligada a ela — não há chave para digitar.</p>
+        <label>E-mail <input id="email" type="email" autocomplete="email" required></label>
+        <label>Senha <input id="senha" type="password" autocomplete="current-password" minlength="6" required></label>
+        <div class="row">
+          <button id="entrar" class="btn" type="submit">Entrar</button>
+          <button id="criar" class="btn ghost" type="button">Criar conta</button>
+        </div>
+      </form>
+      <div id="conta" hidden>
+        <p>Conta: <b id="contaEmail"></b> <button id="sair" class="link" type="button">sair</button></p>
+        <p id="status" class="status"></p>
+        <div id="assinarBox" hidden>
+          <label>E-mail da sua conta no Mercado Pago <input id="mpEmail" type="email" autocomplete="email"></label>
+          <button id="assinarBtn" class="btn" type="button">Assinar por R$ 9,90/mês</button>
+          <p class="muted">Pagamento por cartão no Mercado Pago. Não vemos nem guardamos os dados do seu cartão.</p>
+        </div>
+      </div>
+      <p id="msg" class="msg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Instalação</h2>
+    <p>O Rota Segura é distribuído direto por aqui, fora da Play Store. Ao abrir o arquivo baixado, o Android pede para <b>permitir instalar apps desta fonte</b> — isso é normal para qualquer app fora da loja. O app é assinado digitalmente pelo desenvolvedor; versões falsificadas não instalam por cima dele.</p>
+  </section>
+</main>
+
+<footer class="wrap muted">
+  <a href="privacidade.html">Privacidade</a> · Rota Segura
+</footer>
+</body>
+</html>
