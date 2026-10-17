@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWith
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Endereço do Worker de pagamentos (worker/), preenchido depois do `wrangler deploy`.
-const WORKER_URL = "https://rota-segura-pagamentos.SEU-SUBDOMINIO.workers.dev";
+const WORKER_URL = "https://rota-segura-pagamentos.dgarpiedits.workers.dev";
 
 // Configuração pública do app web do Firebase (não é segredo; quem protege os dados são as regras).
 const app = initializeApp({
