@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Endereço do Worker de pagamentos (worker/), preenchido depois do `wrangler deploy`.
@@ -12,7 +12,9 @@ const app = initializeApp({
   projectId: "rota-segura-3a7d8",
   appId: "1:549328372452:web:1c1a5c335fefd1c851a2f1",
 });
-const auth = getAuth(app), db = getFirestore(app);
+const auth = getAuth(app);
+auth.languageCode = "pt-BR";
+const db = getFirestore(app);
 const $ = id => document.getElementById(id);
 const say = text => { $("msg").textContent = text; };
 
@@ -33,7 +35,10 @@ $("login").onsubmit = e => {
 $("criar").onclick = () => {
   if (!$("login").reportValidity()) return;
   say("");
-  createUserWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value).catch(erro);
+  createUserWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value)
+    .then(c => sendEmailVerification(c.user))
+    .then(() => say("Conta criada! Enviamos um link de confirmação para o seu e-mail — confirme antes de usar o app."))
+    .catch(erro);
 };
 $("sair").onclick = () => signOut(auth);
 
