@@ -50,7 +50,10 @@ onAuthStateChanged(auth, user => {
   if (!user) return;
   $("contaEmail").textContent = user.email;
   $("mpEmail").value ||= user.email;
-  if (new URLSearchParams(location.search).has("pago")) say("Pagamento enviado! O plano é liberado assim que o Mercado Pago confirmar — normalmente em segundos.");
+  if (new URLSearchParams(location.search).has("pago")) {
+    say("Pagamento enviado! O plano é liberado assim que o Mercado Pago confirmar — normalmente em segundos.");
+    verificar(false);
+  }
   // Atualiza sozinho quando o servidor confirma o pagamento.
   stopPlan = onSnapshot(doc(db, "users", user.uid), snap => {
     const until = snap.data()?.paidUntil?.toDate();
@@ -82,3 +85,23 @@ $("assinarBtn").onclick = async () => {
     btn.disabled = false;
   }
 };
+
+// Confere direto no Mercado Pago (caso o aviso automático tenha se perdido); o onSnapshot mostra o resultado.
+async function verificar(avisar) {
+  const btn = $("verificarBtn");
+  btn.disabled = true;
+  try {
+    const res = await fetch(`${WORKER_URL}/verificar`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${await auth.currentUser.getIdToken()}` },
+    });
+    const data = await res.json().catch(() => ({}));
+    if (avisar && !data.ok) say(res.ok
+      ? "Ainda não achamos pagamento aprovado nesta conta. Se acabou de pagar, espere alguns minutos e tente de novo."
+      : "Não foi possível verificar agora. Tente de novo.");
+  } catch {
+    if (avisar) say("Não foi possível verificar agora. Tente de novo.");
+  }
+  btn.disabled = false;
+}
+$("verificarBtn").onclick = () => { say(""); verificar(true); };
