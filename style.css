@@ -68,3 +68,4 @@ input:focus { border-color: var(--green); outline: none; }
 main.wrap h1 { font-size: 32px; margin-top: 40px; }
 footer { padding: 32px 16px; border-top: 1px solid var(--line); }
 :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+details summary { color: var(--muted); cursor: pointer; padding: 12px 0; }

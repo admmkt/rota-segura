@@ -105,3 +105,22 @@ async function verificar(avisar) {
   btn.disabled = false;
 }
 $("verificarBtn").onclick = () => { say(""); verificar(true); };
+
+// Chave de teste: o Worker confere com o segredo MASTER_KEY e libera 30 dias; o onSnapshot mostra o resultado.
+$("chaveBtn").onclick = async () => {
+  const btn = $("chaveBtn");
+  btn.disabled = true;
+  say("");
+  try {
+    const res = await fetch(`${WORKER_URL}/chave`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${await auth.currentUser.getIdToken()}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ key: $("chave").value.trim() }),
+    });
+    say(res.ok ? "Chave aceita! Plano completo liberado por 30 dias." : "Chave inválida.");
+    if (res.ok) $("chave").value = "";
+  } catch {
+    say("Não foi possível conferir a chave agora. Tente de novo.");
+  }
+  btn.disabled = false;
+};
