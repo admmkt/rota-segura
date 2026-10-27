@@ -123,7 +123,7 @@ async function pagar(btn, path, body) {
   }
 }
 $("assinarBtn").onclick = () => pagar($("assinarBtn"), "/checkout", { payerEmail: $("mpEmail").value.trim(), plano: "mensal" });
-$("familiaBtn").onclick = () => pagar($("familiaBtn"), "/checkout", { payerEmail: $("mpEmail").value.trim(), plano: "familia" });
+if ($("familiaBtn")) $("familiaBtn").onclick = () => pagar($("familiaBtn"), "/checkout", { payerEmail: $("mpEmail").value.trim(), plano: "familia" });
 $("anualBtn").onclick = () => pagar($("anualBtn"), "/anual", {});
 
 // Minha família
