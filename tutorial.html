@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<title>Tutoriais — Rota Segura</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0A0D0B">
+<meta name="description" content="Passo a passo para instalar o Rota Segura no Android e para assinar o plano completo.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="wrap top">
+  <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
+  <nav><a href="#instalar">Como instalar</a><a href="#pagar">Como pagar</a><a href="./#assinar">Minha conta</a></nav>
+</header>
+
+<main class="wrap tut">
+  <h1>Tutoriais</h1>
+  <p class="muted">Passo a passo simples. Se o seu celular mostrar algum aviso, é normal: veja as caixas amarelas.</p>
+
+  <section id="instalar">
+    <h2>Como instalar</h2>
+    <ol class="steps">
+      <li><b>Baixe o app.</b> Na <a href="./">página inicial</a>, toque em <b>Baixar para Android</b> (ou <a href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">use este link direto</a>). Baixe pelo celular onde vai usar o app.</li>
+      <li><b>Se o Chrome avisar</b> que o arquivo pode ser prejudicial, toque em <b>Baixar mesmo assim</b>.</li>
+      <li><b>Abra o arquivo baixado</b> (aviso de download ou pasta Downloads) e toque em <b>Instalar</b>. O celular vai mostrar os avisos abaixo.</li>
+    </ol>
+
+    <div class="aviso" role="note">
+      <h3>Avisos que o celular vai mostrar (é normal)</h3>
+      <p>Isso acontece porque o app é instalado fora da Play Store. O app é assinado digitalmente pelo desenvolvedor.</p>
+      <ul>
+        <li><b>Chrome: “Este arquivo pode ser prejudicial”</b> → toque em <b>Baixar mesmo assim</b>.</li>
+        <li><b>“Por segurança, seu telefone não tem permissão para instalar apps desconhecidos desta fonte”</b> → toque em <b>Configurações</b>, ative <b>Permitir desta fonte</b> e volte (seta de voltar) para continuar a instalação.</li>
+        <li><b>Google Play Protect: “App não verificado” / “App desconhecido”</b> → toque em <b>Mais detalhes</b> e depois em <b>Instalar mesmo assim</b>.</li>
+      </ul>
+    </div>
+
+    <ol class="steps cont">
+      <li><b>Abra o app e crie sua conta</b> (nome, e-mail e senha) tocando em <b>Criar conta</b>.</li>
+      <li><b>Confirme seu e-mail.</b> Abra o e-mail que enviamos (olhe também o spam), toque no link e volte ao app em <b>Já confirmei</b>. Sem confirmar, o app não deixa entrar. Se o e-mail não chegar, toque em <b>Reenviar</b>.</li>
+      <li><b>Conceda as permissões</b> (veja a caixa abaixo).</li>
+      <li><b>Adicione seus contatos</b> em <b>Adicionar contato</b>, usando o e-mail que a pessoa usou na conta dela no app. O contato precisa <b>instalar o app também</b> e <b>aceitar o pedido</b> (botão <b>Aceitar</b>); até lá aparece “aguardando aceite”. O plano gratuito só recebe alertas; para cadastrar contatos e usar o botão de pânico é preciso o plano completo (veja <a href="#pagar">Como pagar</a>).</li>
+      <li><b>Ative o botão flutuante</b> em <b>Ativar botão flutuante</b>. Ele fica por cima de qualquer app. Ao tocar nele, os contatos que aceitaram recebem o alarme de sirene com a sua localização.</li>
+    </ol>
+
+    <div class="novo" role="note">
+      <h3>Localização em tempo real</h3>
+      <p>Ao tocar o botão, sua localização é enviada em tempo real por <b>60 minutos</b>. Seus contatos acompanham você no <b>mapa ao vivo</b>.</p>
+      <p>Quem acompanha pode tocar em <b>Finalizar acompanhamento</b> no mapa (pede confirmação). Assim o envio para mesmo se você não tiver mais acesso ao seu celular. Faça isso só quando a pessoa estiver em segurança.</p>
+      <p>Se o celular de quem pediu ajuda ficar sem sinal ou for desligado, a <b>última localização recebida</b> fica guardada no celular de quem recebeu, em <b>Últimas localizações recebidas (24 h)</b>. Esse histórico <b>se apaga sozinho em 24 horas</b>: <b>anote o endereço ou tire um print</b> se precisar dele depois, por exemplo para entregar à polícia.</p>
+    </div>
+
+    <div class="aviso" role="note">
+      <h3>Permissões que o app pede e por quê</h3>
+      <ul>
+        <li><b>Notificações</b> — para você receber os alertas dos seus contatos.</li>
+        <li><b>Localização</b> — escolha <b>Durante o uso do app</b> e deixe <b>Localização precisa</b> ligada, para o mapa mostrar o ponto exato.</li>
+        <li><b>Permitir sobreposição de tela</b> — para o botão de pânico ficar por cima dos outros apps.</li>
+        <li><b>Permitir alerta em tela cheia</b> — para o alarme abrir na tela mesmo com o celular bloqueado, como um despertador.</li>
+        <li><b>Liberar uso em segundo plano (bateria)</b> — para o celular não desligar o app e você continuar recebendo alertas.</li>
+        <li><b>Administrador do dispositivo</b> (opcional, em <b>Bloquear o celular após enviar o alerta</b>) — só para bloquear a tela depois de enviar o alerta. Com essa opção ligada o Android não deixa desinstalar o app; para desinstalar, desligue-a antes.</li>
+      </ul>
+      <p><b>Xiaomi, Samsung, Motorola e outras:</b> nas configurações do app (Configurações → Apps → Rota Segura → Bateria) escolha <b>Sem restrições</b> e ative o <b>Início automático</b> se existir. Senão o celular pode desligar a escuta de alertas.</p>
+    </div>
+  </section>
+
+  <section id="pagar">
+    <h2>Como pagar</h2>
+    <p>O plano completo custa <b>R$ 9,90/mês</b>, pago no cartão pelo Mercado Pago. Cancele quando quiser.</p>
+    <ol class="steps">
+      <li><b>Crie sua conta no app primeiro</b> (veja o tutorial acima).</li>
+      <li><b>No site</b>, vá em <a href="./#assinar">Minha conta</a> e entre com o <b>mesmo e-mail e senha</b> do app (botão <b>Entrar</b>).</li>
+      <li>Confira o campo <b>E-mail da sua conta no Mercado Pago</b> e clique em <b>Assinar por R$ 9,90/mês</b>.</li>
+      <li><b>Pague no Mercado Pago</b> (você é levado ao site deles). Não vemos nem guardamos os dados do seu cartão.</li>
+      <li><b>Volte ao site.</b> O plano costuma liberar em segundos e a tela mostra “Plano completo ativo”. Se não liberar, clique em <b>Já paguei — verificar pagamento</b>; se ainda não achar, espere alguns minutos e tente de novo.</li>
+      <li><b>Abra o app.</b> Ele libera sozinho; se não mudar, feche e abra de novo.</li>
+    </ol>
+    <div class="aviso" role="note">
+      <h3>Como cancelar</h3>
+      <p>A assinatura é gerenciada no Mercado Pago: entre na sua conta (app ou site do Mercado Pago), abra <b>Assinaturas</b> e cancele a do Rota Segura.</p>
+    </div>
+  </section>
+
+  <section id="excluir">
+    <h2>Excluir a conta</h2>
+    <p><b>No app:</b> na tela principal, toque em <b>Excluir conta</b>. <b>No site:</b> entre em <a href="./#assinar">Minha conta</a> e clique em <b>Excluir conta</b>.</p>
+    <div class="aviso" role="note">
+      <h3>E se eu já paguei o mês?</h3>
+      <p>A assinatura é cancelada na hora e não há novas cobranças. Se você tiver um período pago, a conta continua funcionando até o fim dele e depois é apagada com todos os dados (contatos, alertas e localização). Sem período pago, a conta é apagada imediatamente. Não dá para desfazer.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap muted">
+  <p><a href="./">Início</a> · <a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Privacidade</a> · <a href="tutorial.html">Tutoriais</a></p>
+  <p class="criado">Criado por <b>Pires Softwares</b> · <a href="mailto:pires.softwares@gmail.com">pires.softwares@gmail.com</a></p>
+</footer>
+</body>
+</html>

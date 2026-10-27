@@ -106,6 +106,31 @@ async function verificar(avisar) {
 }
 $("verificarBtn").onclick = () => { say(""); verificar(true); };
 
+$("excluirBtn").onclick = async () => {
+  if (!confirm("Excluir sua conta? A assinatura será cancelada e não haverá novas cobranças. Se você tiver um período pago, a conta continua funcionando até o fim dele e depois é apagada com todos os dados (contatos, alertas e localização). Essa ação não pode ser desfeita.")) return;
+  const btn = $("excluirBtn");
+  btn.disabled = true;
+  say("");
+  try {
+    const res = await fetch(`${WORKER_URL}/excluir`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${await auth.currentUser.getIdToken()}`, "Content-Type": "application/json" },
+      body: "{}",
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) throw new Error();
+    if (data.ate) {
+      say(`Assinatura cancelada. Sua conta continua ativa até ${new Date(data.ate).toLocaleDateString("pt-BR")} e depois será excluída com todos os dados.`);
+    } else {
+      await signOut(auth);
+      say("Conta excluída.");
+    }
+  } catch {
+    say("Não foi possível excluir a conta agora. Tente de novo.");
+  }
+  btn.disabled = false;
+};
+
 // Chave de teste: o Worker confere com o segredo MASTER_KEY e libera 30 dias; o onSnapshot mostra o resultado.
 $("chaveBtn").onclick = async () => {
   const btn = $("chaveBtn");

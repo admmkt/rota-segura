@@ -69,3 +69,24 @@ main.wrap h1 { font-size: 32px; margin-top: 40px; }
 footer { padding: 32px 16px; border-top: 1px solid var(--line); }
 :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
 details summary { color: var(--muted); cursor: pointer; padding: 12px 0; }
+
+/* Tutoriais */
+.tut section { padding: 32px 0; }
+.tut h3 { margin: 0 0 8px; font-size: 17px; }
+.tut a { color: var(--green); }
+.tut .steps li { color: var(--silver); }
+.tut .steps.cont { margin-top: 12px; counter-reset: s 3; }
+.aviso, .novo { margin: 16px 0; padding: 16px 18px; border-radius: 14px; border: 1px solid #b8921f; background: rgba(255,200,40,.08); }
+.aviso h3 { color: #ffd45c; }
+.novo { border-color: var(--green-deep); background: rgba(110,245,42,.07); }
+.novo h3 { color: var(--green); }
+.aviso ul { padding-left: 20px; margin: 8px 0; }
+
+/* Rodapé e perigo */
+.criado b { color: #f5a623; }
+.criado a { color: var(--muted); }
+footer p { margin: 4px 0; }
+.btn.danger { background: transparent; color: #ff8a8d; border: 1px solid #6b2325; margin-top: 12px; }
+.btn.danger:hover { background: rgba(232,38,43,.12); border-color: var(--red); }
+.destaque { margin: 16px 0; padding: 16px 18px; border-radius: 14px; border: 1px solid #b8921f; background: rgba(255,200,40,.08); }
+.destaque h2 { color: #ffd45c; }
