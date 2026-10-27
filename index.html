@@ -18,6 +18,8 @@
   <nav><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="tutorial.html">Tutoriais</a><a href="#assinar">Minha conta</a></nav>
 </header>
 
+<div id="promoBanner" class="promo" hidden><b id="promoNome">Black November</b> · Plano anual por <b id="promoBannerPreco">R$ 59,90</b> até <span id="promoBannerAte">30/11</span>. <a href="#planos">Ver planos</a></div>
+
 <main>
   <section class="wrap hero">
     <p class="eyebrow">Botão de pânico · alerta em tempo real</p>
@@ -25,7 +27,7 @@
     <p>O Rota Segura coloca um botão de pânico na sua tela. Ao tocar, seus contatos recebem um <b>alarme de sirene em tela cheia</b>, mesmo com o celular no silencioso, com o link da sua localização no mapa.</p>
     <div class="cta">
       <a class="btn" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar para Android</a>
-      <a class="btn ghost" href="#assinar">Assinar plano completo</a>
+      <a class="btn ghost" href="#assinar">Ver planos</a>
       <a class="btn ghost" href="tutorial.html#instalar">Como instalar</a>
     </div>
   </section>
@@ -47,10 +49,23 @@
         <p class="price">R$ 0</p>
         <p>Recebe os alertas dos seus contatos. Ideal para quem cuida.</p>
       </div>
+      <div class="plan">
+        <h3>Mensal</h3>
+        <p class="price">R$ <span class="pMensal">9,90</span><small>/mês</small></p>
+        <p>Botão de pânico, envio com localização e todos os recursos. Cartão, pelo Mercado Pago. Cancele quando quiser.</p>
+      </div>
+      <!-- Plano família adiado (27/10): o servidor já tem, só mostrar de novo aqui, no botão abaixo e nos termos.
+      <div class="plan">
+        <h3>Família</h3>
+        <p class="price">R$ <span class="pFamilia">14,90</span><small>/mês</small></p>
+        <p>Você e mais <span class="pFamiliaMax">4</span> pessoas (<span class="pFamiliaTotal">5</span> no total) com o plano completo. Cada pessoa cria a conta no app com o próprio e-mail e você adiciona em Minha conta.</p>
+      </div>
+      -->
       <div class="plan featured">
-        <h3>Completo</h3>
-        <p class="price">R$ 9,90<small>/mês</small></p>
-        <p>Botão de pânico, envio com localização e todos os recursos de recebimento. Cancele quando quiser.</p>
+        <h3>Anual</h3>
+        <span id="selo" class="selo" hidden>Black November</span>
+        <p class="price"><s id="precoAntigo" class="antigo" hidden>R$ 79,90</s> R$ <span id="precoAnual">79,90</span></p>
+        <p>Pagamento único por 12 meses, via Pix ou cartão, sem renovação automática. Equivale a ~R$ <span id="equiv">6,66</span>/mês.<span id="promoAte"></span></p>
       </div>
     </div>
   </section>
@@ -72,9 +87,19 @@
         <p id="status" class="status"></p>
         <div id="assinarBox" hidden>
           <label>E-mail da sua conta no Mercado Pago <input id="mpEmail" type="email" autocomplete="email"></label>
-          <button id="assinarBtn" class="btn" type="button">Assinar por R$ 9,90/mês</button>
+          <div class="row">
+            <button id="assinarBtn" class="btn" type="button">Assinar mensal · R$ <span class="pMensal">9,90</span>/mês</button>
+            <button id="familiaBtn" class="btn" type="button" style="display:none">Assinar família · R$ <span class="pFamilia">14,90</span>/mês</button>
+            <button id="anualBtn" class="btn" type="button">Comprar anual · R$ <span class="pAnual">79,90</span></button>
+          </div>
           <button id="verificarBtn" class="link" type="button">Já paguei — verificar pagamento</button>
-          <p class="muted">Pagamento por cartão no Mercado Pago. Não vemos nem guardamos os dados do seu cartão.</p>
+          <p class="muted">Mensal e família: cartão, assinatura no Mercado Pago. Anual: pagamento único por Pix ou cartão. Não vemos nem guardamos os dados do seu cartão.</p>
+        </div>
+        <div id="familiaBox" class="familia" hidden>
+          <h3>Minha família <span id="famContador" class="muted"></span></h3>
+          <ul id="famLista" class="famlista"></ul>
+          <label>E-mail da pessoa (ela precisa ter criado a conta no app) <input id="famEmail" type="email" autocomplete="off"></label>
+          <button id="famAdd" class="btn ghost" type="button">Adicionar</button>
         </div>
         <button id="excluirBtn" class="btn danger" type="button">Excluir conta</button>
         <details>
