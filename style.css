@@ -193,3 +193,10 @@ footer p { margin: 4px 0; }
   .p-texto.entra > *, .alvo-anel, .alvo-anel::after, .alvo-rotulo { animation: none; }
   .p-img, .caps a { transition: none; }
 }
+
+/* Aviso de internet (vermelho, mais forte que o amarelo) */
+.internet { margin: 16px 0; padding: 16px 18px 16px 52px; border-radius: 14px; border: 1px solid #8a2a2c; background: rgba(232,38,43,.09); position: relative; }
+.internet::before { content: "!"; position: absolute; left: 16px; top: 16px; width: 24px; height: 24px; border-radius: 50%; background: var(--red); color: #fff; font-weight: 800; font-size: 15px; display: grid; place-items: center; }
+.internet h3 { margin: 0 0 6px; font-size: 17px; color: #ff9a9c; }
+.internet p { margin: 6px 0; color: var(--silver); }
+.internet b { color: var(--text); }
