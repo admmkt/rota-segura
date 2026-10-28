@@ -375,7 +375,8 @@ footer { background: var(--bg); }
 }
 /* Celular e tablet: o celular aparece numa "vitrine" transparente acima de cada seção; o texto tem fundo próprio */
 @media (max-width: 899px) {
-  .estagio .fone { --w: min(56vh, 128vw); }
+  .estagio .fone { --w: min(44vh, 60vw); }
+  .som { top: 10px; bottom: auto; right: 10px; padding: 6px 10px; font-size: 12px; }
   main:not(.tut) > .wrap:not(.passeio) { background: var(--grid-bg); }
   main:not(.tut) > .wrap.vit { padding-top: calc(72vh + 40px); padding-top: calc(72svh + 40px); background: linear-gradient(to bottom, transparent 72vh, var(--bg) 72vh) 0 0 / 100% 100% no-repeat, var(--grid-lines); background: linear-gradient(to bottom, transparent 72svh, var(--bg) 72svh) 0 0 / 100% 100% no-repeat, var(--grid-lines); }
   .passeio { padding-bottom: 0; }

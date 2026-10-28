@@ -189,7 +189,7 @@
     }
 
     // Câmera: acompanha a cabeça do sinal, close em B, impacto (tremor) e recua para os dois.
-    const zMax = mv ? 2.1 : 1.75;
+    const zMax = mv ? 1.5 : 1.75;
     let z = 1;
     if (d >= 0.68) z = d < 0.73 ? mix(1, 1.45, ease(fase(d, 0.68, 0.73))) : d < 0.775 ? mix(1.45, zMax, ease(fase(d, 0.73, 0.775))) : d < 0.82 ? zMax : mix(zMax, 1, ease(fase(d, 0.82, 0.87)));
     let fx = mix(W / 2, hx, ease(fase(d, 0.68, 0.71))), fy = mix(H / 2, hy, ease(fase(d, 0.68, 0.71)));
