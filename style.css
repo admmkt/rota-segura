@@ -396,12 +396,17 @@ footer { background: var(--bg); }
 @media (max-width: 899px) {
   main [data-fone] { position: relative; }
   main [data-fone]:not(.vit) { padding-top: calc(72svh + 24px); }
-  main [data-fone]::before { content: ""; position: absolute; left: 50%; top: 10svh; height: 52svh; aspect-ratio: 400 / 889; translate: -50% 0;
-    border-radius: 26px; background: #040605 center top / cover no-repeat; box-shadow: 0 0 0 2px #26332b, 0 18px 40px rgba(0,0,0,.6); }
-  main [data-fone="principal"]::before { background-image: url(telas-reais/tela-principal.webp); }
-  main [data-fone="contato"]::before { background-image: url(telas-reais/tela-contato.webp); }
-  main [data-fone="botao"]::before { background-image: url(telas-reais/tela-botao.webp); }
-  main [data-fone="alarme"]::before { background-image: url(telas-reais/tela-alarme.webp); }
+  /* Print em zoom: faixa de largura total, recorte no trecho que o texto descreve, esmaecendo para o texto */
+  main [data-fone]::before { content: ""; position: absolute; left: 0; right: 0; top: 8svh; height: 44svh;
+    background: #040605 no-repeat; background-size: 180% auto;
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent); mask-image: linear-gradient(to bottom, #000 62%, transparent);
+    animation: print-entra linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+  main .wrap[data-fone]::before { left: -16px; right: -16px; }
+  main [data-fone="principal"]::before { background-image: url(telas-reais/tela-principal.webp); background-position: 50% 49%; }
+  main [data-fone="contato"]::before { background-image: url(telas-reais/tela-contato.webp); background-position: 50% 23%; }
+  main [data-fone="botao"]::before { background-image: url(telas-reais/tela-botao.webp); background-position: 100% 10%; }
+  main [data-fone="alarme"]::before { background-image: url(telas-reais/tela-alarme.webp); background-position: 50% 23%; }
+  @keyframes print-entra { from { opacity: 0; } to { opacity: 1; } }
 }
 @media (prefers-reduced-motion: reduce) {
   .js .veu, .js #foneA, .js .top, .js .rolar, .feixe i, .estagio .corpo { animation: none; }
