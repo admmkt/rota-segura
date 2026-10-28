@@ -7,45 +7,126 @@
 <title>Tutoriais — Rota Segura</title>
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0A0D0B">
-<meta name="description" content="Passo a passo para instalar o Rota Segura no Android e para assinar o plano completo.">
+<meta name="description" content="Passo a passo com as telas reais: instalar o Rota Segura no Android, criar a conta, liberar as permissões e ativar o botão de pânico.">
 <link rel="stylesheet" href="style.css">
+<script src="tutorial.js" defer></script>
 </head>
 <body>
 <header class="wrap top">
   <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
-  <nav><a href="#instalar">Como instalar</a><a href="#pagar">Como pagar</a><a href="./#assinar">Minha conta</a></nav>
+  <nav><a href="#instalar">Passo a passo</a><a href="#pagar">Como pagar</a><a href="./#assinar">Minha conta</a></nav>
 </header>
 
-<main class="wrap tut">
-  <h1>Tutoriais</h1>
-  <p class="muted">Passo a passo simples. Se o seu celular mostrar algum aviso, é normal: veja as caixas amarelas.</p>
-
-  <section id="instalar">
-    <h2>Como instalar</h2>
-    <ol class="steps">
-      <li><b>Baixe o app.</b> Na <a href="./">página inicial</a>, toque em <b>Baixar para Android</b> (ou <a href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">use este link direto</a>). Baixe pelo celular onde vai usar o app.</li>
-      <li><b>Se o Chrome avisar</b> que o arquivo pode ser prejudicial, toque em <b>Baixar mesmo assim</b>.</li>
-      <li><b>Abra o arquivo baixado</b> (aviso de download ou pasta Downloads) e toque em <b>Instalar</b>. O celular vai mostrar os avisos abaixo.</li>
+<main class="tut">
+  <section class="wrap tut-hero">
+    <p class="eyebrow">Tutorial com as telas reais</p>
+    <h1>Do download ao botão de pânico em <span class="verde">5 minutos</span>.</h1>
+    <p class="lead">Siga o celular: o ponto verde mostra onde tocar em cada tela. Use os botões, as setas do teclado ou arraste a tela para os lados.</p>
+    <ol class="caps">
+      <li><a href="#instalar" data-ir="instalar"><span>01</span><b>Baixar e instalar</b><small>7 passos · avisos do Android</small></a></li>
+      <li><a href="#conta" data-ir="conta"><span>02</span><b>Conta e permissões</b><small>9 passos · por que cada uma</small></a></li>
+      <li><a href="#usar" data-ir="usar"><span>03</span><b>Contatos e botão</b><small>9 passos · como o alerta funciona</small></a></li>
     </ol>
+  </section>
 
-    <div class="aviso" role="note">
-      <h3>Avisos que o celular vai mostrar (é normal)</h3>
-      <p>Isso acontece porque o app é instalado fora da Play Store. O app é assinado digitalmente pelo desenvolvedor.</p>
-      <ul>
-        <li><b>Chrome: “Este arquivo pode ser prejudicial”</b> → toque em <b>Baixar mesmo assim</b>.</li>
-        <li><b>“Por segurança, seu telefone não tem permissão para instalar apps desconhecidos desta fonte”</b> → toque em <b>Configurações</b>, ative <b>Permitir desta fonte</b> e volte (seta de voltar) para continuar a instalação.</li>
-        <li><b>Google Play Protect: “App não verificado” / “App desconhecido”</b> → toque em <b>Mais detalhes</b> e depois em <b>Instalar mesmo assim</b>.</li>
-      </ul>
+  <section class="wrap" id="instalar" aria-label="Passo a passo">
+    <div class="player" id="player" hidden>
+      <div class="p-tabs" role="tablist" aria-label="Capítulos"></div>
+      <div class="p-texto" aria-live="polite">
+        <p class="p-conta"></p>
+        <h2 class="p-titulo"></h2>
+        <div class="p-corpo"></div>
+      </div>
+      <div class="p-fone">
+        <div class="fone">
+          <div class="tela">
+            <img class="p-img" alt="" width="540" height="1200">
+            <button class="alvo" type="button"><span class="alvo-anel"></span><span class="alvo-rotulo">Toque aqui</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="p-ctrl">
+        <button class="btn ghost p-ant" type="button">← Anterior</button>
+        <div class="p-barra" aria-hidden="true"></div>
+        <button class="btn p-prox" type="button">Próximo →</button>
+      </div>
     </div>
 
-    <ol class="steps cont">
-      <li><b>Abra o app e crie sua conta</b> (nome, e-mail e senha) tocando em <b>Criar conta</b>.</li>
-      <li><b>Confirme seu e-mail.</b> Abra o e-mail que enviamos (olhe também o spam), toque no link e volte ao app em <b>Já confirmei</b>. Sem confirmar, o app não deixa entrar. Se o e-mail não chegar, toque em <b>Reenviar</b>.</li>
-      <li><b>Conceda as permissões</b> (veja a caixa abaixo).</li>
-      <li><b>Adicione seus contatos</b> em <b>Adicionar contato</b>, usando o e-mail que a pessoa usou na conta dela no app. O contato precisa <b>instalar o app também</b> e <b>aceitar o pedido</b> (botão <b>Aceitar</b>); até lá aparece “aguardando aceite”. O plano gratuito só recebe alertas; para cadastrar contatos e usar o botão de pânico é preciso o plano completo (veja <a href="#pagar">Como pagar</a>).</li>
-      <li><b>Ative o botão flutuante</b> em <b>Ativar botão flutuante</b>. Ele fica por cima de qualquer app. Ao tocar nele, os contatos que aceitaram recebem o alarme de sirene com a sua localização.</li>
-    </ol>
+    <!-- Roteiro: o tutorial.js monta o passo a passo a partir destas listas (sem JS elas aparecem como estão). -->
+    <div class="roteiros">
+      <h2 class="r-cap">01 · Baixar e instalar</h2>
+      <ol class="roteiro" data-cap="instalar" data-nome="Baixar e instalar">
+        <li data-img="tut-i01.webp" data-x="26.1" data-y="66.8"><h3>Abra o site no celular</h3>
+          <p>No celular onde você vai usar o app, abra <b>admmkt.github.io/rota-segura</b> e toque em <b>Baixar para Android</b>.</p></li>
+        <li data-img="tut-i02.webp" data-x="68.3" data-y="59.2"><h3>Confirme o download</h3>
+          <p>O Chrome avisa que <b>o arquivo pode ser nocivo</b>. Esse aviso aparece em qualquer app baixado fora da Play Store. Toque em <b>Fazer o download mesmo assim</b>.</p></li>
+        <li data-img="tut-i03.webp" data-x="85.4" data-y="14.8"><h3>Abra o arquivo</h3>
+          <p>Quando terminar, toque em <b>Abrir</b>.</p>
+          <p class="dica">A faixa sumiu? Abra pela notificação de download ou pela pasta <b>Downloads</b>.</p></li>
+        <li data-img="tut-i04.webp" data-x="76.6" data-y="58.8"><h3>Libere a instalação</h3>
+          <p>Na primeira vez, o Android bloqueia apps de fora da loja. Toque em <b>Configurações</b>.</p></li>
+        <li data-img="tut-i05.webp" data-x="89.7" data-y="48.2"><h3>Permitir desta fonte</h3>
+          <p>Ligue a chave <b>Permitir desta fonte</b>. O Android volta sozinho para a instalação.</p>
+          <p class="dica">Não voltou? Toque na seta de voltar.</p></li>
+        <li data-img="tut-i06.webp" data-x="81.9" data-y="57.5"><h3>Instale</h3>
+          <p>Toque em <b>Instalar</b>.</p>
+          <p class="dica alerta">Se aparecer o <b>Google Play Protect</b> dizendo “App não verificado”, toque em <b>Mais detalhes</b> e depois em <b>Instalar mesmo assim</b>. O app é assinado digitalmente pelo desenvolvedor.</p></li>
+        <li data-img="tut-i07.webp" data-x="82.8" data-y="57.5"><h3>Instalado!</h3>
+          <p>Toque em <b>Abrir</b>. O ícone do Rota Segura também fica na tela inicial.</p></li>
+      </ol>
 
+      <h2 class="r-cap" id="conta">02 · Conta e permissões</h2>
+      <ol class="roteiro" data-cap="conta" data-nome="Conta e permissões">
+        <li data-img="tut-a01.webp" data-x="50" data-y="79"><h3>Crie sua conta</h3>
+          <p>Preencha seu nome (é ele que aparece no alerta), seu e-mail e uma senha. Toque em <b>Criar conta</b>.</p>
+          <p class="dica">Já tem conta? Toque em <b>Entrar</b>.</p></li>
+        <li data-img="tut-a02.webp" data-x="72" data-y="62.7"><h3>Confirme o e-mail</h3>
+          <p>Enviamos um link para o seu e-mail (olhe também o spam). Toque no link e volte ao app em <b>Já confirmei</b>.</p>
+          <p class="dica">Não chegou? Toque em <b>Reenviar</b>.</p></li>
+        <li data-img="tut-a03.webp" data-x="50" data-y="37.4"><h3>Permissões especiais</h3>
+          <p>O app lista as permissões que precisam ser ligadas à mão. Comece por <b>Liberar uso em segundo plano</b>.</p></li>
+        <li data-img="tut-a04.webp" data-x="81.6" data-y="61.5"><h3>Bateria</h3>
+          <p>Toque em <b>Permitir</b>. Assim o Android não desliga o app e você continua recebendo alertas.</p></li>
+        <li data-img="tut-a05.webp" data-x="50" data-y="37.5"><h3>Alerta em tela cheia</h3>
+          <p>Agora toque em <b>Permitir alerta em tela cheia</b>.</p></li>
+        <li data-img="tut-a06.webp" data-x="89.7" data-y="49.5"><h3>Ligue a chave</h3>
+          <p>Ligue <b>Permitir que esse app mostre notificações em tela cheia</b>. É isso que faz o alarme abrir com o celular bloqueado, como um despertador.</p></li>
+        <li data-img="tut-a07.webp" data-x="6.9" data-y="8.4"><h3>Volte ao app</h3>
+          <p>Com a chave ligada, toque na <b>seta de voltar</b>.</p></li>
+        <li data-img="tut-a08.webp" data-x="50" data-y="62.3"><h3>Localização</h3>
+          <p>Deixe <b>Exata</b> marcada e toque em <b>Durante o uso do app</b>. Seus contatos veem o ponto exato no mapa.</p></li>
+        <li data-img="tut-a09.webp" data-x="50" data-y="54.3"><h3>Notificações</h3>
+          <p>Toque em <b>Permitir</b> para receber os alertas dos seus contatos.</p>
+          <p class="dica alerta">Xiaomi, Samsung, Motorola: em Configurações → Apps → Rota Segura → Bateria, escolha <b>Sem restrições</b>. Senão o celular pode desligar a escuta de alertas.</p></li>
+      </ol>
+
+      <h2 class="r-cap" id="usar">03 · Contatos e botão</h2>
+      <ol class="roteiro" data-cap="usar" data-nome="Contatos e botão">
+        <li data-img="tut-a10.webp" data-x="50" data-y="45.2"><h3>Plano gratuito: só recebe</h3>
+          <p>No plano gratuito você já recebe alertas de quem te cadastrou: passe seu e-mail para essas pessoas. Para cadastrar contatos e usar o botão de pânico, toque em <b>Assinar versão completa</b>.</p></li>
+        <li data-img="tut-a11.webp" data-x="20" data-y="60.1"><h3>Assine pelo site</h3>
+          <p>O botão abre o site. Entre com o <b>mesmo e-mail e senha do app</b> e assine. O app libera sozinho em segundos.</p>
+          <p class="dica">Detalhes em <a href="#pagar">Como pagar</a>.</p></li>
+        <li data-img="tut-a13.webp" data-x="50" data-y="72.5"><h3>Plano completo ativo</h3>
+          <p>Agora aparecem o botão de pânico e os contatos de emergência. Toque em <b>Adicionar contato</b>.</p></li>
+        <li data-img="tut-a14.webp" data-x="50" data-y="61"><h3>Cadastre um contato</h3>
+          <p>Informe o nome e o <b>e-mail que a pessoa usa no app dela</b>. A mensagem é opcional: sem ela, vai a mensagem padrão de emergência. Toque em <b>Salvar</b>.</p></li>
+        <li data-img="tut-a15.webp" data-x="50" data-y="44.4"><h3>Aguardando aceite</h3>
+          <p>O contato precisa ter o app instalado e tocar em <b>Aceitar</b>. Até lá aparece “aguardando aceite”. Depois, toque em <b>Ativar botão flutuante</b>.</p></li>
+        <li data-img="tut-a16.webp" data-x="50" data-y="36.1"><h3>Sobreposição de tela</h3>
+          <p>Para o botão ficar por cima dos outros apps, toque em <b>Permitir sobreposição de tela</b>.</p></li>
+        <li data-img="tut-a17.webp" data-x="31" data-y="66.2"><h3>Encontre o Rota Segura</h3>
+          <p>Na lista de apps, toque em <b>Rota Segura</b>.</p></li>
+        <li data-img="tut-a18.webp" data-x="89.7" data-y="49.5"><h3>Ligue a chave</h3>
+          <p>Ligue <b>Permitir sobreposição a outros apps</b>, volte ao app e toque de novo em <b>Ativar botão flutuante</b>.</p></li>
+        <li data-img="tut-a19.webp" data-x="90.5" data-y="17" data-rotulo="Botão de pânico"><h3>Seu botão de pânico</h3>
+          <p>O botão vermelho fica por cima de qualquer app; arraste para mudar de lugar. Em perigo, <b>um toque basta</b>:</p>
+          <ul class="fluxo"><li>o botão some e a tela escurece por um instante, para não chamar atenção;</li><li>seus contatos recebem a <b>sirene em tela cheia</b>, mesmo no silencioso;</li><li>eles acompanham você no <b>mapa ao vivo por 60 minutos</b>.</li></ul></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap info">
     <div class="novo" role="note">
       <h3>Localização em tempo real</h3>
       <p>Ao tocar o botão, sua localização é enviada em tempo real por <b>60 minutos</b>. Seus contatos acompanham você no <b>mapa ao vivo</b>.</p>
@@ -56,22 +137,21 @@
     <div class="aviso" role="note">
       <h3>Permissões que o app pede e por quê</h3>
       <ul>
-        <li><b>Notificações</b> — para você receber os alertas dos seus contatos.</li>
-        <li><b>Localização</b> — escolha <b>Durante o uso do app</b> e deixe <b>Localização precisa</b> ligada, para o mapa mostrar o ponto exato.</li>
-        <li><b>Permitir sobreposição de tela</b> — para o botão de pânico ficar por cima dos outros apps.</li>
-        <li><b>Permitir alerta em tela cheia</b> — para o alarme abrir na tela mesmo com o celular bloqueado, como um despertador.</li>
-        <li><b>Liberar uso em segundo plano (bateria)</b> — para o celular não desligar o app e você continuar recebendo alertas.</li>
-        <li><b>Administrador do dispositivo</b> (opcional, em <b>Bloquear o celular após enviar o alerta</b>) — só para bloquear a tela depois de enviar o alerta. Com essa opção ligada o Android não deixa desinstalar o app; para desinstalar, desligue-a antes.</li>
+        <li><b>Notificações</b>: para você receber os alertas dos seus contatos.</li>
+        <li><b>Localização</b>: escolha <b>Durante o uso do app</b> e deixe <b>Exata</b> marcada, para o mapa mostrar o ponto certo.</li>
+        <li><b>Sobreposição de tela</b>: para o botão de pânico ficar por cima dos outros apps.</li>
+        <li><b>Alerta em tela cheia</b>: para o alarme abrir na tela mesmo com o celular bloqueado, como um despertador.</li>
+        <li><b>Uso em segundo plano (bateria)</b>: para o celular não desligar o app e você continuar recebendo alertas.</li>
+        <li><b>Administrador do dispositivo</b> (opcional, em <b>Bloquear o celular após enviar o alerta</b>): só para bloquear a tela depois de enviar o alerta. Com essa opção ligada o Android não deixa desinstalar o app; para desinstalar, desligue-a antes.</li>
       </ul>
-      <p><b>Xiaomi, Samsung, Motorola e outras:</b> nas configurações do app (Configurações → Apps → Rota Segura → Bateria) escolha <b>Sem restrições</b> e ative o <b>Início automático</b> se existir. Senão o celular pode desligar a escuta de alertas.</p>
     </div>
   </section>
 
-  <section id="pagar">
+  <section class="wrap" id="pagar">
     <h2>Como pagar</h2>
     <p>O plano completo custa <b>R$ 9,90/mês</b>, pago no cartão pelo Mercado Pago. Cancele quando quiser.</p>
     <ol class="steps">
-      <li><b>Crie sua conta no app primeiro</b> (veja o tutorial acima).</li>
+      <li><b>Crie sua conta no app primeiro</b> (veja o passo a passo acima).</li>
       <li><b>No site</b>, vá em <a href="./#assinar">Minha conta</a> e entre com o <b>mesmo e-mail e senha</b> do app (botão <b>Entrar</b>).</li>
       <li>Confira o campo <b>E-mail da sua conta no Mercado Pago</b> e clique em <b>Assinar por R$ 9,90/mês</b>.</li>
       <li><b>Pague no Mercado Pago</b> (você é levado ao site deles). Não vemos nem guardamos os dados do seu cartão.</li>
@@ -84,7 +164,7 @@
     </div>
   </section>
 
-  <section id="excluir">
+  <section class="wrap" id="excluir">
     <h2>Excluir a conta</h2>
     <p><b>No app:</b> na tela principal, toque em <b>Excluir conta</b>. <b>No site:</b> entre em <a href="./#assinar">Minha conta</a> e clique em <b>Excluir conta</b>.</p>
     <div class="aviso" role="note">
