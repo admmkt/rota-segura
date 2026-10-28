@@ -204,8 +204,6 @@
     sete(est, "--flash", Math.max(toque * 0.35, impacto * 0.8) * (1 - sai));
     sete(est, "--halo", 0.7 - 0.3 * fase(d, 0.78, 0.9));
     if (somBtn) somBtn.classList.toggle("sai", t0 >= 1);
-  // Celular: depois da cena, o celular 3D some (cada bloco mostra o print dele, em CSS)
-  est.classList.toggle("sumiu", mv && t0 > 0);
 
     if (reduzir) return;
     if (d >= 0.60 && d < 0.68 && !disparou) {
