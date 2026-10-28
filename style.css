@@ -391,6 +391,18 @@ footer { background: var(--bg); }
   .protecao b { font-size: 26px; }
   .rolar { top: 26vh; }
 }
+/* Celular: depois da cena, o celular 3D some e cada bloco mostra o print estático da tela que ele descreve, acima do texto */
+.estagio.sumiu { display: none; }
+@media (max-width: 899px) {
+  main [data-fone] { position: relative; }
+  main [data-fone]:not(.vit) { padding-top: calc(72svh + 24px); }
+  main [data-fone]::before { content: ""; position: absolute; left: 50%; top: 10svh; height: 52svh; aspect-ratio: 400 / 889; translate: -50% 0;
+    border-radius: 26px; background: #040605 center top / cover no-repeat; box-shadow: 0 0 0 2px #26332b, 0 18px 40px rgba(0,0,0,.6); }
+  main [data-fone="principal"]::before { background-image: url(telas-reais/tela-principal.webp); }
+  main [data-fone="contato"]::before { background-image: url(telas-reais/tela-contato.webp); }
+  main [data-fone="botao"]::before { background-image: url(telas-reais/tela-botao.webp); }
+  main [data-fone="alarme"]::before { background-image: url(telas-reais/tela-alarme.webp); }
+}
 @media (prefers-reduced-motion: reduce) {
   .js .veu, .js #foneA, .js .top, .js .rolar, .feixe i, .estagio .corpo { animation: none; }
   .estagio .tela img, .som { transition: none; }
