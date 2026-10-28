@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#0A0D0B">
 <meta name="description" content="Botão de pânico que dispara um alarme de sirene no celular de quem você confia, com sua localização.">
 <link rel="stylesheet" href="style.css">
+<script src="cena.js" defer></script>
 <script type="module" src="app.js"></script>
 </head>
 <body>
@@ -20,19 +21,89 @@
 
 <div id="promoBanner" class="promo" hidden><b id="promoNome">Black November</b> · Plano anual por <b id="promoBannerPreco">R$ 59,90</b> até <span id="promoBannerAte">30/11</span>. <a href="#planos">Ver planos</a></div>
 
+<!-- Palco fixo atrás da página inteira: o mesmo celular acompanha todas as seções (cena.js). -->
+<div class="estagio" id="estagio" aria-hidden="true">
+  <div class="halo"></div>
+  <div class="palco" id="palco">
+    <div class="fone" id="foneB">
+      <div class="corpo">
+        <i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i>
+        <i class="lado le"></i><i class="lado ld"></i><i class="lado lt"></i><i class="lado lb"></i>
+        <div class="face costas"><span class="modulo"><i></i><i></i><i></i></span><span class="marca"></span><span class="luz"></span></div>
+        <div class="face frente">
+          <div class="tela">
+          <img class="on" data-t="alarme" src="telas-reais/tela-alarme.webp" alt="" width="400" height="889">
+            <span class="apagada"></span>
+          </div>
+          <span class="reflexo"></span><span class="luz"></span>
+        </div>
+      </div>
+    </div>
+    <div class="feixe" id="feixe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <span class="sinal"></span>
+    <span class="impacto"></span>
+    <div class="fone" id="foneA">
+      <div class="corpo">
+        <i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i><i class="miolo"></i>
+        <i class="lado le"></i><i class="lado ld"></i><i class="lado lt"></i><i class="lado lb"></i>
+        <div class="face costas"><span class="modulo"><i></i><i></i><i></i></span><span class="marca"></span><span class="luz"></span></div>
+        <div class="face frente">
+          <div class="tela">
+          <img class="on" data-t="motorista" src="telas-reais/tela-motorista.webp" alt="Tela de um app de corrida com o botão de pânico flutuante" width="376" height="801">
+          <img data-t="principal" src="telas-reais/tela-principal.webp" alt="" width="400" height="889" loading="lazy">
+          <img data-t="contato" src="telas-reais/tela-contato.webp" alt="" width="400" height="889">
+          <img data-t="botao" src="telas-reais/tela-botao.webp" alt="" width="400" height="889" loading="lazy">
+          <img data-t="alarme" src="telas-reais/tela-alarme.webp" alt="" width="400" height="889" loading="lazy">
+            <span class="apagada"></span><span class="pressao"></span>
+          </div>
+          <span class="reflexo"></span><span class="luz"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="frase">Tem alguém me seguindo.</p>
+  <p class="frase">Estou com medo.</p>
+  <p class="frase">Preciso de ajuda agora.</p>
+  <p class="protecao"><b>Proteção que chega antes do silêncio.</b> Sirene, tela vermelha e sua localização no mapa, mesmo com o celular no silencioso.</p>
+  <p class="rolar">Role para ver</p>
+  <div class="flash"></div>
+  <div class="veu"></div>
+</div>
+<button id="somBtn" class="btn ghost som" type="button">Ativar som</button>
+
 <main>
-  <section class="wrap hero">
+  <section id="cena" class="cena" aria-label="Como o alerta funciona">
+    <p class="sr-only">Uma pessoa pensa: tem alguém me seguindo, estou com medo, preciso de ajuda agora. Ela toca o botão de pânico do Rota Segura e o celular de um contato recebe na hora um alarme de sirene com a localização dela. Proteção que chega antes do silêncio.</p>
+  </section>
+
+  <section id="inicio" class="wrap hero vit" data-fone="principal">
     <p class="eyebrow">Botão de pânico · alerta em tempo real</p>
     <h1>Um toque. Quem você confia é avisado na hora.</h1>
     <p>O Rota Segura coloca um botão de pânico na sua tela. Ao tocar, seus contatos recebem um <b>alarme de sirene em tela cheia</b>, mesmo com o celular no silencioso, com o link da sua localização no mapa. <b>Funciona de app para app: seus contatos também instalam o Rota Segura</b> (para eles, o plano gratuito basta).</p>
     <div class="cta">
       <a class="btn" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar para Android</a>
-      <a class="btn ghost" href="#assinar">Ver planos</a>
+      <a class="btn ghost" href="#planos">Ver planos</a>
       <a class="btn ghost" href="tutorial.html#instalar">Como instalar</a>
     </div>
   </section>
 
-  <section id="dois-apps" class="wrap">
+  <section id="por-dentro" class="wrap passeio" aria-labelledby="pd-titulo">
+    <h2 id="pd-titulo">Por dentro do app</h2>
+    <article class="passo vit" data-fone="principal" data-giro="1">
+      <h3>Tudo num painel só</h3>
+      <p>Plano, botão de pânico e contatos na mesma tela. Quem cuida vê na hora se o alerta está pronto.</p>
+    </article>
+    <article class="passo vit" data-fone="contato">
+      <h3>Cadastre quem deve ser avisado</h3>
+      <p>Até <b>3 contatos</b>, pelo e-mail que eles usam no app. Só quem aceitar recebe os alertas.</p>
+    </article>
+    <article class="passo vit" data-fone="botao">
+      <h3>Um toque e o alerta sai</h3>
+      <p>O botão fica por cima de qualquer app. Ele envia sua localização para os contatos que aceitaram.</p>
+    </article>
+  </section>
+
+  <section id="dois-apps" class="wrap" data-fone="alarme">
     <h2>Funciona de app para app</h2>
     <p class="ponte-lead">O Rota Segura não manda SMS nem faz ligação: o alerta vai <b>de um app para o outro</b>, pela internet. Por isso, <b>você e cada contato precisam ter o Rota Segura instalado</b>, cada um com a própria conta.</p>
     <div class="ponte" aria-hidden="true">
@@ -56,7 +127,7 @@
     <p class="muted">Mande este endereço para os seus contatos baixarem: <b class="url">admmkt.github.io/rota-segura</b></p>
   </section>
 
-  <section id="como" class="wrap">
+  <section id="como" class="wrap" data-fone="contato">
     <h2>Como funciona</h2>
     <ol class="steps">
       <li><b>Crie sua conta</b> no app e adicione até <b>3 contatos</b> pelo e-mail.</li>
@@ -69,7 +140,7 @@
     </div>
   </section>
 
-  <section id="planos" class="wrap">
+  <section id="planos" class="wrap vit" data-giro="1" data-fone="principal">
     <h2>Planos</h2>
     <div class="plans">
       <div class="plan">
@@ -98,7 +169,7 @@
     </div>
   </section>
 
-  <section id="assinar" class="wrap">
+  <section id="assinar" class="wrap vit" data-giro="1" data-fone="principal">
     <h2>Minha conta</h2>
     <div class="card">
       <form id="login">
@@ -140,7 +211,7 @@
     </div>
   </section>
 
-  <section class="wrap">
+  <section id="instalacao" class="wrap vit" data-giro="1" data-fone="botao">
     <h2>Instalação</h2>
     <p><a href="tutorial.html#instalar">Veja o passo a passo completo.</a></p>
     <p>O Rota Segura é distribuído direto por aqui, fora da Play Store. Ao abrir o arquivo baixado, o Android pede para <b>permitir instalar apps desta fonte</b> — isso é normal para qualquer app fora da loja. O app é assinado digitalmente pelo desenvolvedor; versões falsificadas não instalam por cima dele.</p>

@@ -3,6 +3,8 @@
   --bg: #0a0d0b; --card: #121814; --card-hi: #1a231d; --line: #2a3730;
   --text: #eef3ef; --muted: #93a198; --silver: #c5cec8;
   --green: #6ef52a; --green-deep: #2fa80e; --green-ink: #061103; --red: #e8262b;
+  --grid-lines: linear-gradient(rgba(110,245,42,.035) 1px, transparent 1px) 0 0 / 48px 48px, linear-gradient(90deg, rgba(110,245,42,.035) 1px, transparent 1px) 0 0 / 48px 48px;
+  --grid-bg: linear-gradient(rgba(110,245,42,.035) 1px, transparent 1px) 0 0 / 48px 48px, linear-gradient(90deg, rgba(110,245,42,.035) 1px, transparent 1px) 0 0 / 48px 48px var(--bg);
   --mono: ui-monospace, "Cascadia Mono", "Roboto Mono", Consolas, monospace;
 }
 * { box-sizing: border-box; }
@@ -233,3 +235,174 @@ footer p { margin: 4px 0; }
 .checks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--green-ink); font-weight: 800; font-size: 13px; display: grid; place-items: center; }
 .url { color: var(--green); font-family: var(--mono); overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) { .fio span, .recebe svg { animation: none; } .fio span:not(:first-child) { display: none; } .fio span { left: 50%; } }
+
+
+/* ---- Palco fixo atrás da página: o mesmo celular 3D em todas as seções (cena.js) ----
+   O palco é position: fixed e nunca é recortado por uma seção, por isso não há emenda entre seções. */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.top, .promo { position: relative; z-index: 2; }
+main, footer { position: relative; z-index: 1; }
+footer { background: var(--bg); }
+.estagio { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 45%, rgba(11,20,15,.95) 0%, rgba(3,5,4,.55) 72%, rgba(0,0,0,0) 100%); }
+.halo { position: absolute; left: 50%; top: 50%; width: 110vmin; height: 110vmin; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(31,209,107,.30), rgba(31,209,107,.07) 55%, transparent 74%); opacity: var(--halo, .7); }
+.palco { position: absolute; inset: 0; perspective: max(1100px, 150vh); transform-origin: 0 0; }
+
+/* Celular genérico: frente (tela), verso (módulo de câmera), quatro laterais e miolo em camadas = espessura real */
+.estagio .fone { --w: 56vh; --d: calc(var(--w) * .045); --r: calc(var(--w) * .14);
+  position: absolute; left: 50%; top: 50%; width: var(--w); height: calc(var(--w) * 2.14); margin: calc(var(--w) * -1.07) 0 0 calc(var(--w) / -2);
+  padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; transform-style: preserve-3d;
+  transform: translate3d(calc(var(--x, 25) * 1vw), calc(var(--y, 0) * 1vh), 0) scale(var(--s, .5)) rotateZ(calc(var(--rz, 0) * 1deg)) rotateX(calc(var(--rx, 4) * 1deg)) rotateY(calc(var(--ry, -18) * 1deg)); }
+.estagio .fone::before { content: none; }
+.estagio #foneB { opacity: var(--op, 0); }
+.corpo { position: absolute; inset: 0; transform-style: preserve-3d; }
+.miolo { position: absolute; inset: 0; border-radius: var(--r); background: #3a463f; box-shadow: inset 0 0 0 1px #6d7d73; }
+.miolo:nth-child(1) { transform: translateZ(calc(var(--d) * -.47)); }
+.miolo:nth-child(2) { transform: translateZ(calc(var(--d) * -.31)); }
+.miolo:nth-child(3) { transform: translateZ(calc(var(--d) * -.16)); }
+.miolo:nth-child(5) { transform: translateZ(calc(var(--d) * .16)); }
+.miolo:nth-child(6) { transform: translateZ(calc(var(--d) * .31)); }
+.miolo:nth-child(7) { transform: translateZ(calc(var(--d) * .47)); }
+.estagio .lado { position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.estagio .lado::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--sl, .5); }
+.le, .ld { top: var(--r); bottom: var(--r); width: var(--d); background: linear-gradient(90deg, #2c3530, #9aa99f 42%, #6d7d73 62%, #2c3530); }
+.le { left: calc(var(--d) / -2); transform: rotateY(-90deg); }
+.ld { left: calc(100% - var(--d) / 2); transform: rotateY(90deg); }
+.estagio .ld::after { opacity: var(--sr, .5); }
+.ld::before { content: ""; position: absolute; left: 30%; right: 30%; top: 14%; height: 16%; border-radius: 4px; background: #77867c; box-shadow: 0 calc(var(--w) * .26) 0 #77867c; }
+.lt, .lb { left: var(--r); right: var(--r); height: var(--d); background: linear-gradient(180deg, #2c3530, #8a998f 45%, #2c3530); }
+.lt { top: calc(var(--d) / -2); transform: rotateX(90deg); }
+.lb { top: calc(100% - var(--d) / 2); transform: rotateX(-90deg); }
+.lt::after { opacity: .2; }
+.lb::after { opacity: .65; }
+
+.estagio .face { position: absolute; inset: 0; border-radius: var(--r); overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.estagio .frente { transform: translateZ(calc(var(--d) / 2 + 1px)); padding: calc(var(--w) * .035); background: #040605;
+  box-shadow: inset 0 0 0 calc(var(--w) * .007) #4c5a51, inset 0 0 0 calc(var(--w) * .012) #0d120f; }
+.estagio .costas { transform: rotateY(180deg) translateZ(calc(var(--d) / 2 + 1px));
+  background: radial-gradient(ellipse 80% 50% at 30% 15%, rgba(110,245,42,.10), transparent 70%), linear-gradient(160deg, #34403a 0%, #18201b 38%, #0c110e 72%, #222b25 100%);
+  box-shadow: inset 0 0 0 calc(var(--w) * .007) #4c5a51; }
+.modulo { position: absolute; left: 7%; top: 3.5%; width: 40%; aspect-ratio: 1; border-radius: 24%; background: linear-gradient(145deg, #2a3530, #0b0f0c);
+  box-shadow: inset 0 0 0 2px #46544b, 0 8px 20px rgba(0,0,0,.6); }
+.modulo i { position: absolute; width: 38%; aspect-ratio: 1; border-radius: 50%; box-shadow: 0 0 0 3px #303b35, 0 0 0 5px #0a0d0b;
+  background: radial-gradient(circle at 38% 34%, #8fb0d6 0 6%, #1d3550 14%, #05080c 42%, #000 70%); }
+.modulo i:nth-child(1) { left: 8%; top: 8%; }
+.modulo i:nth-child(2) { left: 54%; top: 8%; }
+.modulo i:nth-child(3) { left: 8%; top: 54%; }
+.modulo::after { content: ""; position: absolute; left: 64%; top: 64%; width: 16%; aspect-ratio: 1; border-radius: 50%; background: #f1f5e6; box-shadow: 0 0 10px #f6ffc4; }
+.marca { position: absolute; left: 50%; top: 52%; width: 22%; aspect-ratio: 1; translate: -50% -50%; background: url(logo.svg) center / contain no-repeat; opacity: .55; }
+.estagio .luz { position: absolute; inset: 0; border-radius: inherit; background: #000; opacity: var(--sb, 0); pointer-events: none; z-index: 5; }
+.estagio .frente .luz { opacity: var(--sf, 0); }
+
+.estagio .tela { position: relative; width: 100%; height: 100%; aspect-ratio: auto; border-radius: calc(var(--r) * .78); overflow: hidden; background: #000; }
+.estagio .tela::before { content: ""; position: absolute; left: 50%; top: 1.6%; width: 4%; aspect-ratio: 1; translate: -50% 0; border-radius: 50%; background: #000; box-shadow: 0 0 0 2px #111; z-index: 4; }
+.estagio .tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .45s cubic-bezier(.45,0,.2,1); }
+.estagio .tela img.on { opacity: 1; }
+.apagada { position: absolute; inset: 0; z-index: 3; background: #000; opacity: var(--off, 0); }
+.reflexo { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; mix-blend-mode: screen; z-index: 4;
+  background: linear-gradient(115deg, transparent calc(var(--gx, 40%) - 18%), rgba(255,255,255,.10) var(--gx, 40%), transparent calc(var(--gx, 40%) + 18%)); }
+/* Toque no botão flutuante da tela real (fica a ~90% x 17% de tela-botao.webp; ajuste se a captura mudar) */
+.pressao { position: absolute; left: 85.6%; top: 55.6%; width: 18%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; z-index: 4;
+  background: radial-gradient(circle, rgba(255,255,255,.85), rgba(255,255,255,.35) 45%, transparent 70%); opacity: var(--press, 0); transform: scale(var(--pscale, 1)); }
+
+/* Sinal verde entre os celulares */
+.feixe { position: absolute; left: 0; top: 0; width: var(--len, 0px); height: 24px; margin-top: -12px; transform-origin: 0 50%; pointer-events: none;
+  transform: translate(var(--fx, 0px), var(--fy, 0px)) rotate(var(--ang, 0deg)) scaleX(var(--fe, 0)); }
+/* Feixe de luz: halo suave com núcleo claro, bordas esmaecidas (sem linha sólida) */
+.feixe::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 16px; margin-top: -8px; border-radius: 999px;
+  background: linear-gradient(90deg, rgba(31,209,107,0) 0%, rgba(31,209,107,.35) 25%, rgba(127,252,255,.6) 50%, rgba(31,209,107,.35) 75%, rgba(31,209,107,0) 100%);
+  filter: blur(6px); }
+.feixe::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(230,255,250,.9) 45%, rgba(255,255,255,.95) 55%, rgba(255,255,255,0) 100%);
+  filter: blur(1px); }
+.feixe i { position: absolute; top: 50%; left: 0; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0 35%, #7ffcff 60%, rgba(31,209,107,0) 72%); opacity: 0; animation: particula 1.4s ease-in-out infinite; }
+.feixe i:nth-child(2) { animation-delay: .23s; } .feixe i:nth-child(3) { animation-delay: .46s; } .feixe i:nth-child(4) { animation-delay: .69s; }
+.feixe i:nth-child(5) { animation-delay: .92s; } .feixe i:nth-child(6) { animation-delay: 1.15s; }
+.sinal { position: absolute; left: 0; top: 0; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 14px #baffd8, 0 0 34px #1fd16b; transform: translate3d(var(--hx, 0px), var(--hy, 0px), 0); opacity: var(--hop, 0); }
+.impacto { position: absolute; left: 0; top: 0; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
+  border: 3px solid #ff8a8d; box-shadow: 0 0 24px #e8262b; transform: translate3d(var(--ix, 0px), var(--iy, 0px), 0) scale(var(--ir, 0)); opacity: var(--io, 0); }
+
+/* Textos da cena: fora do celular, com fundo escuro; a opacidade vem do JS */
+.frase, .protecao { position: absolute; z-index: 5; margin: 0; opacity: var(--o, 0); transform: translate3d(0, calc((1 - var(--o, 0)) * 18px), 0); }
+.frase { left: max(16px, calc(50% - 560px)); top: 50%; translate: 0 -50%; max-width: min(520px, 42vw); padding: 18px 24px;
+  border-left: 3px solid var(--green); border-radius: 4px 14px 14px 4px; background: rgba(3,5,4,.86); color: #fff; font: 700 clamp(28px, 3.3vw, 46px)/1.15 var(--mono); }
+.protecao { left: 50%; bottom: 5vh; translate: -50% 0; width: min(640px, calc(100% - 32px)); text-align: center; color: var(--silver); font-size: 17px;
+  padding: 16px 20px; border-radius: 14px; background: rgba(3,5,4,.82); }
+.protecao b { display: block; color: var(--text); font-size: clamp(24px, 2.8vw, 38px); line-height: 1.1; margin-bottom: 8px; }
+.rolar { position: absolute; left: 50%; top: 30vh; translate: -50% 0; margin: 0; font: 600 12px var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--green);
+  filter: opacity(var(--o, 1)); }
+.rolar::after { content: ""; display: block; width: 1px; height: 36px; margin: 10px auto 0; background: linear-gradient(var(--green), transparent); }
+.flash { position: absolute; inset: 0; z-index: 6; opacity: var(--flash, 0); background: radial-gradient(circle, rgba(229,72,77,.55), rgba(229,72,77,.08) 62%); }
+.veu { position: absolute; inset: 0; z-index: 9; background: #000; opacity: 0; visibility: hidden; }
+.som { position: fixed; right: 16px; bottom: 16px; z-index: 3; padding: 8px 14px; font-size: 14px; background: rgba(5,7,6,.78); transition: opacity .3s, visibility .3s; }
+.som.sai { opacity: 0; visibility: hidden; }
+
+/* Abertura: tela preta, o celular sobe de costas até mostrar ~35% do topo */
+.js .veu { animation: veu-some 1.3s ease .2s both; }
+@keyframes veu-some { from { opacity: 1; visibility: visible; } to { opacity: 0; visibility: hidden; } }
+.js #foneA { animation: fone-sobe 2.3s cubic-bezier(.45,0,.2,1) .3s both; }
+@keyframes fone-sobe { from { translate: 0 80vh; } to { translate: 0 0; } }
+.js .top { animation: topo-entra .8s ease 2.4s both; }
+@keyframes topo-entra { from { opacity: 0; } }
+.rolar { display: none; }
+.js .rolar { display: block; animation: rolar-entra .8s ease 2.6s both; }
+@keyframes rolar-entra { from { opacity: 0; translate: -50% 10px; } }
+
+/* Seção da cena: só espaço de rolagem (o palco é fixo) */
+.cena { height: 0; }
+.js .cena { height: 850vh; }
+.js.reduzir .cena { height: 100vh; }
+
+.hero h1 { max-width: 15ch; }
+.passo { padding: 24px 0; }
+.passo h3 { font-size: clamp(26px, 3.4vw, 40px); line-height: 1.1; margin: 0 0 12px; }
+.passo p { color: var(--muted); font-size: 18px; max-width: 40ch; margin: 0; }
+.passo b { color: var(--text); }
+.js-anim .rev { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+.js-anim .rev.vis { opacity: 1; transform: none; }
+
+/* Desktop: texto à esquerda, celular à direita */
+@media (min-width: 900px) {
+  main:not(.tut) > .wrap { margin-left: max(16px, calc(50% - 560px)); margin-right: 0; max-width: min(600px, calc(50vw - 56px)); }
+  #inicio { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  .passo { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; }
+  .plans { grid-template-columns: 1fr 1fr; }
+  .plans .plan.featured { grid-column: 1 / -1; }
+  #instalacao { min-height: 70vh; }
+}
+/* Celular e tablet: o celular aparece numa "vitrine" transparente acima de cada seção; o texto tem fundo próprio */
+@media (max-width: 899px) {
+  .estagio .fone { --w: min(56vh, 128vw); }
+  main:not(.tut) > .wrap:not(.passeio) { background: var(--grid-bg); }
+  main:not(.tut) > .wrap.vit { padding-top: calc(72vh + 40px); padding-top: calc(72svh + 40px); background: linear-gradient(to bottom, transparent 72vh, var(--bg) 72vh) 0 0 / 100% 100% no-repeat, var(--grid-lines); background: linear-gradient(to bottom, transparent 72svh, var(--bg) 72svh) 0 0 / 100% 100% no-repeat, var(--grid-lines); }
+  .passeio { padding-bottom: 0; }
+  .passeio > h2 { margin: 0 -16px; padding: 24px 16px 8px; background: var(--grid-bg); }
+  .passo { margin: 0 -16px; padding: 24px 16px; background: var(--grid-bg); }
+  .passo.vit { padding-top: calc(72vh + 24px); padding-top: calc(72svh + 24px); background: linear-gradient(to bottom, transparent 72vh, var(--bg) 72vh) 0 0 / 100% 100% no-repeat, var(--grid-lines); background: linear-gradient(to bottom, transparent 72svh, var(--bg) 72svh) 0 0 / 100% 100% no-repeat, var(--grid-lines); }
+  .frase { left: 16px; right: 16px; top: 8vh; translate: none; max-width: none; font-size: 26px; padding: 14px 18px; }
+  .protecao { bottom: calc(4vh + 52px); font-size: 15px; }
+  .protecao b { font-size: 26px; }
+  .rolar { top: 26vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .veu, .js #foneA, .js .top, .js .rolar, .feixe i { animation: none; }
+  .estagio .tela img, .som { transition: none; }
+}
+
+/* Seções com o celular à esquerda: o texto fica à direita, na metade livre */
+@media (min-width: 900px) {
+  .texto-dir { text-align: right; }
+  main:not(.tut) > .wrap.texto-dir { margin-left: auto; margin-right: max(16px, calc(50% - 560px)); max-width: min(600px, calc(50vw - 56px)); }
+  .texto-dir > * { max-width: 100%; }
+  .texto-dir .ponte { grid-template-columns: 1fr 0.5fr 1fr; gap: 8px; padding: 20px 14px; }
+  .texto-dir .lado small { font-size: 13px; }
+}
+
+/* Tutorial: usa a largura da tela no desktop (o player fica ao lado do texto) */
+@media (min-width: 900px) {
+  .tut > .wrap { max-width: 1040px; }
+  .tut .p-texto, .tut .p-ctrl { max-width: 620px; }
+}
