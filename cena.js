@@ -135,7 +135,8 @@
     let offA = 1 - fase(d, 0.185, 0.225);
     ts.forEach((t, i) => {
       if (t <= 0) return;
-      const alvo = mv ? poses[i].m : poses[i].d, e = ease(t);
+      // Celular: parado em cada bloco (troca direta, com a tela já apagada), sem deslizar nem girar entre eles
+      const alvo = mv ? poses[i].m : poses[i].d, e = mv ? (t >= 0.5 ? 1 : 0) : ease(t);
       pa = { x: mix(pa.x, alvo.x, e), y: mix(pa.y, alvo.y, e), s: mix(pa.s, alvo.s, e), ry: mix(pa.ry, alvo.ry, e), rx: mix(pa.rx, alvo.rx, e), rz: mix(pa.rz, alvo.rz, e) };
       if (t >= 0.5) nomeTela = ancoras[i].dataset.fone;
       // cada cena começa bloqueada: a tela apaga na troca e acende quando o celular chega

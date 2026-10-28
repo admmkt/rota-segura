@@ -257,6 +257,9 @@ footer { background: var(--bg); }
 .estagio .fone::before { content: none; }
 .estagio #foneB { opacity: var(--op, 0); }
 .corpo { position: absolute; inset: 0; transform-style: preserve-3d; }
+/* Respiro: o celular sobe e desce um pouquinho, sem mexer na pose que o cena.js calcula */
+.estagio .corpo { animation: respiro 5.5s ease-in-out infinite; }
+@keyframes respiro { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-1%) scale(1.01); } }
 .miolo { position: absolute; inset: 0; border-radius: var(--r); background: #3a463f; box-shadow: inset 0 0 0 1px #6d7d73; }
 .miolo:nth-child(1) { transform: translateZ(calc(var(--d) * -.47)); }
 .miolo:nth-child(2) { transform: translateZ(calc(var(--d) * -.31)); }
@@ -389,7 +392,7 @@ footer { background: var(--bg); }
   .rolar { top: 26vh; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .js .veu, .js #foneA, .js .top, .js .rolar, .feixe i { animation: none; }
+  .js .veu, .js #foneA, .js .top, .js .rolar, .feixe i, .estagio .corpo { animation: none; }
   .estagio .tela img, .som { transition: none; }
 }
 
