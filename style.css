@@ -200,3 +200,36 @@ footer p { margin: 4px 0; }
 .internet h3 { margin: 0 0 6px; font-size: 17px; color: #ff9a9c; }
 .internet p { margin: 6px 0; color: var(--silver); }
 .internet b { color: var(--text); }
+
+/* Funciona de app para app (index.html) */
+.ponte-lead { font-size: 18px; color: var(--silver); max-width: 64ch; margin: 0 0 24px; }
+.ponte-lead b { color: var(--text); }
+.ponte { display: grid; grid-template-columns: 1fr 1.2fr 1fr; align-items: center; gap: 12px; padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; }
+.lado { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.lado b { font-size: 16px; }
+.lado small { color: var(--muted); font-size: 13px; }
+.lado svg rect:first-child { fill: #0d120f; stroke: var(--green); stroke-width: 3; }
+.lado .bp { fill: var(--red); stroke: var(--green); stroke-width: 2; }
+.lado text { fill: #fff; font: 800 18px system-ui, sans-serif; }
+.lado .sir { fill: var(--red); }
+.recebe svg { animation: tremer 1.6s ease-in-out infinite; }
+.fio { position: relative; height: 4px; background: repeating-linear-gradient(90deg, var(--line) 0 10px, transparent 10px 16px); border-radius: 2px; }
+.fio span { position: absolute; top: -4px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); animation: viajar 2.4s linear infinite; }
+.fio span:nth-child(2) { animation-delay: .8s; }
+.fio span:nth-child(3) { animation-delay: 1.6s; }
+.fio em { position: absolute; left: 50%; top: 14px; translate: -50% 0; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--green); }
+@keyframes viajar { from { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } to { left: calc(100% - 12px); opacity: 0; } }
+@keyframes tremer { 0%, 70%, 100% { transform: rotate(0); } 75% { transform: rotate(-4deg); } 85% { transform: rotate(4deg); } }
+@media (max-width: 600px) {
+  .ponte { grid-template-columns: 1fr; padding: 20px 16px; }
+  .fio { width: 4px; height: 90px; margin: 4px auto 18px; background: repeating-linear-gradient(180deg, var(--line) 0 10px, transparent 10px 16px); }
+  .fio span { left: -4px; animation-name: descer; }
+  .fio em { top: 50%; left: 16px; translate: 0 -50%; }
+  @keyframes descer { from { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } to { top: calc(100% - 12px); opacity: 0; } }
+}
+.checks { list-style: none; padding: 0; margin: 20px 0 8px; display: grid; gap: 10px; }
+.checks li { position: relative; padding-left: 32px; color: var(--silver); }
+.checks li b { color: var(--text); }
+.checks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--green-ink); font-weight: 800; font-size: 13px; display: grid; place-items: center; }
+.url { color: var(--green); font-family: var(--mono); overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { .fio span, .recebe svg { animation: none; } .fio span:not(:first-child) { display: none; } .fio span { left: 50%; } }
