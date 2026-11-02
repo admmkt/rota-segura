@@ -1,6 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Dentro de frame (clickjacking) não liga login nem pagamento; antiframe.js já escondeu a página.
+if (top !== self) throw new Error("em frame");
 
 // Endereço do Worker de pagamentos (worker/), preenchido depois do `wrangler deploy`.
 const WORKER_URL = "https://rota-segura-pagamentos.dgarpiedits.workers.dev";
@@ -47,9 +50,11 @@ fetch(`${WORKER_URL}/precos`).then(r => r.ok ? r.json() : Promise.reject()).then
   }
 }).catch(() => {});
 
+// Mesma mensagem com conta nova ou e-mail já cadastrado: não revela quem tem conta.
+const CRIADA = "Se o e-mail estiver livre, criamos a conta e enviamos o link de confirmação — confirme e depois toque em Entrar. Se você já tem conta, use Entrar ou “Esqueci minha senha”.";
 const ERROS = {
   "auth/invalid-credential": "E-mail ou senha incorretos.",
-  "auth/email-already-in-use": "Já existe conta com este e-mail. Use Entrar.",
+  "auth/email-already-in-use": CRIADA,
   "auth/weak-password": "A senha precisa ter pelo menos 6 caracteres.",
   "auth/invalid-email": "E-mail inválido.",
   "auth/too-many-requests": "Muitas tentativas. Espere alguns minutos.",
@@ -59,24 +64,41 @@ const erro = e => say(ERROS[e.code] || "Não deu certo. Confira a internet e ten
 $("login").onsubmit = e => {
   e.preventDefault();
   say("");
-  signInWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value).catch(erro);
+  signInWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value)
+    .then(c => {
+      if (c.user.emailVerified) return mostrar(c.user);
+      say(`Seu e-mail ainda não foi confirmado. Abra o link que enviamos para ${c.user.email} (veja também o spam) e toque em Entrar de novo.`);
+      sendEmailVerification(c.user).catch(() => {}); // reenvia; o Firebase limita a frequência
+    })
+    .catch(erro);
 };
 $("criar").onclick = () => {
   if (!$("login").reportValidity()) return;
   say("");
   createUserWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value)
     .then(c => sendEmailVerification(c.user))
-    .then(() => say("Conta criada! Enviamos um link de confirmação para o seu e-mail — confirme antes de usar o app."))
+    .then(() => say(CRIADA))
     .catch(erro);
+};
+$("esqueci").onclick = () => {
+  if (!$("email").reportValidity()) return;
+  say("");
+  const ok = "Se existir uma conta com este e-mail, enviamos um link para criar uma nova senha.";
+  // user-not-found vira a mesma mensagem de sucesso: não revela se a conta existe
+  sendPasswordResetEmail(auth, $("email").value.trim())
+    .then(() => say(ok))
+    .catch(e => e.code === "auth/user-not-found" ? say(ok) : erro(e));
 };
 $("sair").onclick = () => signOut(auth);
 
 let stopPlan = null;
-onAuthStateChanged(auth, user => {
+// Conta sem e-mail confirmado fica no formulário de login: as regras e o app também exigem a confirmação.
+function mostrar(user) {
   stopPlan?.(); stopPlan = null;
-  $("login").hidden = !!user;
-  $("conta").hidden = !user;
-  if (!user) return;
+  const ok = !!user?.emailVerified;
+  $("login").hidden = ok;
+  $("conta").hidden = !ok;
+  if (!ok) return;
   $("contaEmail").textContent = user.email;
   $("mpEmail").value ||= user.email;
   if (new URLSearchParams(location.search).has("pago")) {
@@ -103,7 +125,8 @@ onAuthStateChanged(auth, user => {
     if (membro) titularFamilia();
     if (ativo) say("");
   }, () => say("Não foi possível ler seu plano agora."));
-});
+}
+onAuthStateChanged(auth, mostrar);
 
 async function pagar(btn, path, body) {
   btn.disabled = true;
@@ -253,7 +276,8 @@ $("chaveBtn").onclick = async () => {
     if (res.ok) {
       say(data.ate ? `Chave aceita! Plano completo liberado até ${new Date(data.ate).toLocaleDateString("pt-BR")}.` : "Chave aceita! Plano completo liberado.");
       $("chave").value = "";
-    } else if (res.status === 409) say("Essa chave já foi usada por outra conta.");
+    } else if (res.status === 429) say("Muitas tentativas erradas. Espere uma hora e tente de novo.");
+    else if (res.status === 409) say("Essa chave já foi usada por outra conta.");
     else if (res.status === 403) say("Chave inválida ou cancelada.");
     else say("Não foi possível conferir a chave agora. Tente de novo.");
   } catch {

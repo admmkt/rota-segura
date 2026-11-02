@@ -422,3 +422,6 @@ footer { background: var(--bg); }
   .tut > .wrap { max-width: 1040px; }
   .tut .p-texto, .tut .p-ctrl { max-width: 620px; }
 }
+
+/* Página aberta dentro de frame de outro site (antiframe.js): não mostra nada. */
+html.emFrame { display: none !important; }
