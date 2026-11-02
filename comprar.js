@@ -22,7 +22,9 @@ const token = async () => `Bearer ${await auth.currentUser.getIdToken()}`;
 const brl = n => n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 // Estado da venda: a tela certa sai daqui (plano -> conta -> pagamento -> download).
-let plano = null;      // "mensal" | "anual"
+// Link "Trocar para o anual" da Minha conta chega com ?plano=anual.
+const planoDaUrl = new URLSearchParams(location.search).get("plano");
+let plano = planoDaUrl === "anual" || planoDaUrl === "mensal" ? planoDaUrl : null;      // "mensal" | "anual"
 let usuario = null;    // conta com e-mail confirmado
 let ativo = false;     // plano já liberado pelo servidor
 let precos = { mensal: 9.9, anual: 79.9 };
@@ -86,7 +88,6 @@ $("criar").onclick = () => {
     .then(() => say(CRIADA))
     .catch(erro);
 };
-$("sair").onclick = () => signOut(auth);
 
 // Confere o plano em tempo real; o passo 4 aparece sozinho quando o servidor confirma.
 onAuthStateChanged(auth, user => {
@@ -111,7 +112,10 @@ onAuthStateChanged(auth, user => {
 
 // Mostra só a tela do passo atual e atualiza a barra de progresso.
 function render() {
-  const passo = ativo ? 4 : !plano ? 1 : !usuario ? 2 : 3;
+  // Quem já tem plano ativo só volta a comprar para trocar pelo anual.
+  const escolheu = plano && !(ativo && plano === "mensal");
+  const passo = escolheu ? (usuario ? 3 : 2) : (ativo ? 4 : 1);
+  $("avisoTroca").hidden = !(plano === "anual" && ativo);
   for (let n = 1; n <= 4; n++) $(`passo${n}`).hidden = n !== passo;
   $("prog").dataset.step = passo;
   $("progTxt").textContent = `Passo ${passo} de 4`;
@@ -120,6 +124,7 @@ function render() {
     $("resumoValor").textContent = `R$ ${brl(precoDo(plano))}`;
     $("pagarBtn").textContent = `Pagar R$ ${brl(precoDo(plano))} agora`;
   }
+  $("contaArea").hidden = !usuario;
   if (passo !== ultimoPasso) window.scrollTo({ top: 0 });
   ultimoPasso = passo;
 }

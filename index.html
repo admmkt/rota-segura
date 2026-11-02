@@ -17,7 +17,7 @@
 <body>
 <header class="wrap top">
   <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
-  <nav><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="comprar.html">Comprar</a><a href="tutorial.html">Tutoriais</a><a href="#assinar">Minha conta</a></nav>
+  <nav><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="comprar.html">Comprar</a><a href="conta.html">Minha conta</a><a href="tutorial.html">Tutoriais</a></nav>
 </header>
 
 <div id="promoBanner" class="promo" hidden><b id="promoNome">Black November</b> · Plano anual por <b id="promoBannerPreco">R$ 59,90</b> até <span id="promoBannerAte">30/11</span>. <a href="#planos">Ver planos</a></div>
@@ -172,50 +172,13 @@
   </section>
 
   <section id="assinar" class="wrap vit" data-giro="1" data-fone="principal">
-    <h2>Minha conta</h2>
+    <h2>Pronto para começar?</h2>
     <div class="card">
-      <form id="login">
-        <p>Entre com a <b>mesma conta do app</b>. A assinatura fica ligada a ela — não há chave para digitar.</p>
-        <label>E-mail <input id="email" type="email" autocomplete="email" required></label>
-        <label>Senha <input id="senha" type="password" autocomplete="current-password" minlength="6" required></label>
-        <div class="row">
-          <button id="entrar" class="btn" type="submit">Entrar</button>
-          <button id="criar" class="btn ghost" type="button">Criar conta</button>
-        </div>
-        <button id="esqueci" class="link" type="button">Esqueci minha senha</button>
-      </form>
-      <div id="conta" hidden>
-        <p>Conta: <b id="contaEmail"></b> <button id="sair" class="link" type="button">sair</button></p>
-        <p id="status" class="status"></p>
-        <div id="baixarBox" class="card" hidden>
-          <p><b>Pagamento confirmado! Agora baixe o app no celular Android.</b></p>
-          <a class="btn" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar o Rota Segura</a>
-          <p class="muted"><a href="tutorial.html#instalar">Como instalar</a></p>
-        </div>
-        <div id="assinarBox" hidden>
-          <label>E-mail da sua conta no Mercado Pago <input id="mpEmail" type="email" autocomplete="email"></label>
-          <div class="row">
-            <button id="assinarBtn" class="btn" type="button">Assinar mensal · R$ <span class="pMensal">9,90</span>/mês</button>
-            <!-- família adiada: <button id="familiaBtn" class="btn" type="button">Assinar família · R$ <span class="pFamilia">14,90</span>/mês</button> -->
-            <button id="anualBtn" class="btn" type="button">Comprar anual · R$ <span class="pAnual">79,90</span></button>
-          </div>
-          <button id="verificarBtn" class="link" type="button">Já paguei — verificar pagamento</button>
-          <p class="muted">Mensal: cartão, assinatura no Mercado Pago. Anual: pagamento único por Pix ou cartão. Não vemos nem guardamos os dados do seu cartão.</p>
-        </div>
-        <div id="familiaBox" class="familia" hidden>
-          <h3>Minha família <span id="famContador" class="muted"></span></h3>
-          <ul id="famLista" class="famlista"></ul>
-          <label>E-mail da pessoa (ela precisa ter criado a conta no app) <input id="famEmail" type="email" autocomplete="off"></label>
-          <button id="famAdd" class="btn ghost" type="button">Adicionar</button>
-        </div>
-        <button id="excluirBtn" class="btn danger" type="button">Excluir conta</button>
-        <details>
-          <summary>Tenho uma chave de teste</summary>
-          <label>Chave de teste <input id="chave" type="text" autocomplete="off"></label>
-          <button id="chaveBtn" class="btn ghost" type="button">Ativar</button>
-        </details>
+      <p>Escolha o seu plano e baixe o app no celular em poucos minutos.</p>
+      <div class="cta">
+        <a class="btn" href="comprar.html">Comprar agora</a>
+        <a class="btn ghost" href="comprar.html">Já comprei: entrar na minha conta</a>
       </div>
-      <p id="msg" class="msg" role="status" aria-live="polite"></p>
     </div>
   </section>
 

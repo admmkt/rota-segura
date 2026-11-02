@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; connect-src 'self' https://*.googleapis.com https://rota-segura-pagamentos.dgarpiedits.workers.dev; frame-src https://rota-segura-3a7d8.firebaseapp.com; img-src 'self' data:; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Minha conta · Rota Segura</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0A0D0B">
+<meta name="description" content="Veja seus dados, a validade da assinatura e cancele a renovação quando quiser.">
+<script src="antiframe.js"></script>
+<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="comprar.css">
+<script type="module" src="conta.js"></script>
+</head>
+<body>
+<header class="g-top">
+  <a class="logo" href="./"><img src="logo.svg" alt="" width="34" height="34"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
+  <nav class="g-nav" aria-label="Páginas do site">
+    <a href="./">Início</a>
+    <a href="comprar.html">Comprar</a>
+    <a href="tutorial.html">Tutoriais</a>
+    <a href="termos.html">Termos</a>
+    <a href="privacidade.html">Privacidade</a>
+  </nav>
+</header>
+
+<main class="g-main">
+  <h1>Minha conta</h1>
+
+  <!-- Quem não entrou vê só o login -->
+  <section id="entrar" class="etapa" hidden>
+    <p class="sub">Entre com o mesmo e-mail que você usa no app.</p>
+    <form id="login">
+      <label class="campo">E-mail
+        <input id="email" type="email" autocomplete="email" inputmode="email" required>
+      </label>
+      <label class="campo">Senha
+        <input id="senha" type="password" autocomplete="current-password" minlength="6" required>
+      </label>
+      <button id="entrarBtn" class="acao" type="submit">Entrar</button>
+    </form>
+    <p class="sub">Ainda não tem conta? <a href="comprar.html">Compre o Rota Segura</a>.</p>
+  </section>
+
+  <!-- Quem entrou -->
+  <section id="dados" class="etapa" hidden>
+    <div class="resumo">
+      <p class="resumo-linha"><span>E-mail</span><b id="contaEmail">—</b></p>
+      <p class="resumo-linha"><span>Plano</span><b id="plano">—</b></p>
+      <p class="resumo-linha"><span>Conta criada em</span><b id="criada">—</b></p>
+      <p class="resumo-linha"><span>Assinatura começou em</span><b id="inicio">—</b></p>
+      <p class="resumo-linha"><span>Acesso até</span><b id="validade">—</b></p>
+      <p class="resumo-linha"><span>Próxima cobrança</span><b id="proxima">—</b></p>
+    </div>
+
+    <div class="card-status" id="statusBox">
+      <p id="status" class="status"></p>
+    </div>
+
+    <a id="baixarBtn" class="acao" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk" hidden>Baixar o Rota Segura</a>
+    <a id="comprarBtn" class="acao" href="comprar.html" hidden>Escolher um plano</a>
+    <button id="cancelarBtn" class="acao sec" type="button" hidden>Cancelar renovação</button>
+    <a id="trocarBtn" class="acao sec" href="comprar.html?plano=anual" hidden>Trocar para o plano anual</a>
+
+    <h2 class="sec-titulo">Pagamentos</h2>
+    <ul id="historico" class="historico"></ul>
+
+    <h2 class="sec-titulo">Conta</h2>
+    <button id="sair" class="acao sec" type="button">Sair</button>
+    <details class="chave">
+      <summary>Tenho uma chave de teste</summary>
+      <label class="campo">Chave de teste
+        <input id="chave" type="text" autocomplete="off">
+      </label>
+      <button id="chaveBtn" class="acao sec" type="button">Ativar</button>
+    </details>
+    <button id="excluirBtn" class="acao perigo" type="button">Excluir minha conta</button>
+  </section>
+
+  <section id="recibo" class="recibo" hidden>
+    <div class="recibo-topo">
+      <img src="logo.svg" alt="" width="40" height="40">
+      <div><b>Rota Segura</b><small>Pires Softwares</small></div>
+    </div>
+    <h2>Comprovante de pagamento</h2>
+    <dl>
+      <dt>Número</dt><dd id="reciboNum"></dd>
+      <dt>Data</dt><dd id="reciboData"></dd>
+      <dt>Descrição</dt><dd id="reciboDesc"></dd>
+      <dt>Cliente</dt><dd id="reciboEmail"></dd>
+      <dt>Valor</dt><dd id="reciboValor"></dd>
+      <dt>Situação</dt><dd id="reciboStatus"></dd>
+    </dl>
+    <p class="recibo-nota">Documento de exibição. Não é nota fiscal.</p>
+    <div class="row no-print">
+      <button id="imprimirBtn" class="acao sec" type="button">Imprimir ou salvar em PDF</button>
+      <button id="fecharRecibo" class="voltar" type="button">Fechar</button>
+    </div>
+  </section>
+
+  <p id="msg" class="msg" role="status" aria-live="polite"></p>
+</main>
+
+<footer class="g-foot">
+  <p><a href="./">Início</a> · <a href="termos.html">Termos</a> · <a href="privacidade.html">Privacidade</a> · <a href="tutorial.html">Tutoriais</a></p>
+  <p>Criado por <b>Pires Softwares</b> · <a href="mailto:pires.softwares@gmail.com">pires.softwares@gmail.com</a></p>
+</footer>
+</body>
+</html>

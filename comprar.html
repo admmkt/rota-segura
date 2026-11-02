@@ -17,7 +17,15 @@
 <body>
 <header class="g-top">
   <a class="logo" href="./"><img src="logo.svg" alt="" width="34" height="34"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
-  <span class="g-tag">Compra guiada</span>
+  <nav class="g-nav" aria-label="Páginas do site">
+    <a href="./">Início</a>
+    <a href="index.html#como">Como funciona</a>
+    <a href="index.html#planos">Planos</a>
+    <a href="tutorial.html">Tutoriais</a>
+    <a href="termos.html">Termos</a>
+    <a href="privacidade.html">Privacidade</a>
+    <a href="conta.html">Minha conta</a>
+  </nav>
 </header>
 
 <main class="g-main">
@@ -64,6 +72,7 @@
       <p class="resumo-linha"><span>Plano</span><b id="resumoPlano">Anual</b></p>
       <p class="resumo-linha"><span>Valor</span><b id="resumoValor">R$ 79,90</b></p>
     </div>
+    <p id="avisoTroca" class="sub" hidden>Sua renovação mensal será cancelada. O anual começa depois do último dia já pago, então você não perde nada.</p>
     <p class="sub">Você vai para o Mercado Pago. Pague por lá e depois volte aqui.</p>
     <label class="campo">E-mail da sua conta no Mercado Pago
       <input id="mpEmail" type="email" autocomplete="email" inputmode="email">
@@ -71,7 +80,6 @@
     <button id="pagarBtn" class="acao" type="button">Pagar agora</button>
     <button id="verificarBtn" class="voltar" type="button">Já paguei — conferir</button>
     <button class="voltar" type="button" data-voltar>← Trocar o plano</button>
-    <button id="sair" class="voltar" type="button">Sair e usar outra conta</button>
   </section>
 
   <section id="passo4" class="etapa" hidden>
@@ -87,6 +95,10 @@
   </section>
 
   <p id="msg" class="msg" role="status" aria-live="polite"></p>
+
+  <section id="contaArea" class="conta" hidden>
+    <a class="acao sec" href="conta.html">Ver minha conta</a>
+  </section>
 </main>
 
 <footer class="g-foot">
