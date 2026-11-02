@@ -119,6 +119,7 @@ function mostrar(user) {
       : `${NOMES[d.plano] || "Plano completo"} ativo até ${dia}. Abra o app — ele já está liberado.`;
     $("status").classList.toggle("ok", !!ativo);
     $("assinarBox").hidden = !!ativo;
+    $("baixarBox").hidden = !ativo;
     const dono = ativo && d.plano === "familia";
     $("familiaBox").hidden = !dono;
     if (dono) carregarFamilia();

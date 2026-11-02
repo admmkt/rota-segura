@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; connect-src 'self' https://*.googleapis.com https://*.workers.dev; frame-src https://rota-segura-3a7d8.firebaseapp.com; img-src 'self' data:; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; connect-src 'self' https://*.googleapis.com https://rota-segura-pagamentos.dgarpiedits.workers.dev; frame-src https://rota-segura-3a7d8.firebaseapp.com; img-src 'self' data:; style-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Rota Segura do Goes</title>
 <link rel="icon" href="logo.svg" type="image/svg+xml">
@@ -17,7 +17,7 @@
 <body>
 <header class="wrap top">
   <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
-  <nav><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="tutorial.html">Tutoriais</a><a href="#assinar">Minha conta</a></nav>
+  <nav><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="comprar.html">Comprar</a><a href="tutorial.html">Tutoriais</a><a href="#assinar">Minha conta</a></nav>
 </header>
 
 <div id="promoBanner" class="promo" hidden><b id="promoNome">Black November</b> · Plano anual por <b id="promoBannerPreco">R$ 59,90</b> até <span id="promoBannerAte">30/11</span>. <a href="#planos">Ver planos</a></div>
@@ -168,6 +168,7 @@
         <p>Pagamento único por 12 meses, via Pix ou cartão, sem renovação automática. Equivale a ~R$ <span id="equiv">6,66</span>/mês.<span id="promoAte"></span></p>
       </div>
     </div>
+    <p class="cta"><a class="btn" href="comprar.html">Quero comprar — passo a passo</a></p>
   </section>
 
   <section id="assinar" class="wrap vit" data-giro="1" data-fone="principal">
@@ -186,6 +187,11 @@
       <div id="conta" hidden>
         <p>Conta: <b id="contaEmail"></b> <button id="sair" class="link" type="button">sair</button></p>
         <p id="status" class="status"></p>
+        <div id="baixarBox" class="card" hidden>
+          <p><b>Pagamento confirmado! Agora baixe o app no celular Android.</b></p>
+          <a class="btn" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar o Rota Segura</a>
+          <p class="muted"><a href="tutorial.html#instalar">Como instalar</a></p>
+        </div>
         <div id="assinarBox" hidden>
           <label>E-mail da sua conta no Mercado Pago <input id="mpEmail" type="email" autocomplete="email"></label>
           <div class="row">

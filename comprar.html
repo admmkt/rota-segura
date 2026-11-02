@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; connect-src 'self' https://*.googleapis.com https://rota-segura-pagamentos.dgarpiedits.workers.dev; frame-src https://rota-segura-3a7d8.firebaseapp.com; img-src 'self' data:; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Comprar o Rota Segura</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0A0D0B">
+<meta name="description" content="Compre o Rota Segura em 4 passos simples, direto do celular.">
+<script src="antiframe.js"></script>
+<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="comprar.css">
+<script type="module" src="comprar.js"></script>
+</head>
+<body>
+<header class="g-top">
+  <a class="logo" href="./"><img src="logo.svg" alt="" width="34" height="34"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
+  <span class="g-tag">Compra guiada</span>
+</header>
+
+<main class="g-main">
+  <div class="prog" id="prog" data-step="1" aria-hidden="true"><div class="bar"></div></div>
+  <p class="prog-txt" id="progTxt" role="status">Passo 1 de 4</p>
+
+  <section id="passo1" class="etapa">
+    <h1>Qual plano você quer?</h1>
+    <p class="sub">Os dois têm alarme com sirene, localização e até 3 contatos.</p>
+    <div class="opcoes">
+      <button type="button" class="opcao escolha" data-plano="anual" aria-pressed="false">
+        <span class="op-topo"><span>Anual</span><span class="badge">Mais vantajoso</span></span>
+        <span class="op-preco">R$ <span class="pAnual">79,90</span></span>
+        <span class="op-txt">Paga uma vez e vale 12 meses. Pix ou cartão.</span>
+        <span class="op-txt economia" id="economia"></span>
+      </button>
+      <button type="button" class="opcao escolha" data-plano="mensal" aria-pressed="false">
+        <span class="op-topo"><span>Mensal</span></span>
+        <span class="op-preco">R$ <span class="pMensal">9,90</span><small>/mês</small></span>
+        <span class="op-txt">No cartão, todo mês. Cancele quando quiser.</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="passo2" class="etapa" hidden>
+    <h1>Crie sua conta</h1>
+    <p class="sub">Use o e-mail do seu celular. É com ele que o app é liberado.</p>
+    <form id="login">
+      <label class="campo">E-mail
+        <input id="email" type="email" autocomplete="email" inputmode="email" required>
+      </label>
+      <label class="campo">Crie uma senha (mínimo 6 letras ou números)
+        <input id="senha" type="password" autocomplete="new-password" minlength="6" required>
+      </label>
+      <button id="criar" class="acao" type="button">Criar conta</button>
+      <button id="entrar" class="acao sec" type="submit">Já tenho conta: entrar</button>
+    </form>
+    <button class="voltar" type="button" data-voltar>← Voltar e trocar o plano</button>
+  </section>
+
+  <section id="passo3" class="etapa" hidden>
+    <h1>Pagamento</h1>
+    <div class="resumo">
+      <p class="resumo-linha"><span>Plano</span><b id="resumoPlano">Anual</b></p>
+      <p class="resumo-linha"><span>Valor</span><b id="resumoValor">R$ 79,90</b></p>
+    </div>
+    <p class="sub">Você vai para o Mercado Pago. Pague por lá e depois volte aqui.</p>
+    <label class="campo">E-mail da sua conta no Mercado Pago
+      <input id="mpEmail" type="email" autocomplete="email" inputmode="email">
+    </label>
+    <button id="pagarBtn" class="acao" type="button">Pagar agora</button>
+    <button id="verificarBtn" class="voltar" type="button">Já paguei — conferir</button>
+    <button class="voltar" type="button" data-voltar>← Trocar o plano</button>
+    <button id="sair" class="voltar" type="button">Sair e usar outra conta</button>
+  </section>
+
+  <section id="passo4" class="etapa" hidden>
+    <h1>Tudo pronto!</h1>
+    <p class="sub"><b>Pagamento confirmado.</b> Agora é só instalar no celular Android.</p>
+    <a class="acao" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar o Rota Segura</a>
+    <ol class="steps passos-instalar">
+      <li>Abra o arquivo que foi baixado.</li>
+      <li>Toque em <b>Instalar</b>. Se pedir, permita instalar desta fonte.</li>
+      <li>Abra o app e entre com o <b>mesmo e-mail</b> desta compra.</li>
+    </ol>
+    <p class="muted-c"><a href="tutorial.html#instalar">Ficou com dúvida? Veja o passo a passo com imagens.</a></p>
+  </section>
+
+  <p id="msg" class="msg" role="status" aria-live="polite"></p>
+</main>
+
+<footer class="g-foot">
+  <p><a href="./">Início</a> · <a href="termos.html">Termos</a> · <a href="privacidade.html">Privacidade</a> · <a href="tutorial.html">Tutoriais</a></p>
+  <p>Criado por <b>Pires Softwares</b> · <a href="mailto:pires.softwares@gmail.com">pires.softwares@gmail.com</a></p>
+</footer>
+</body>
+</html>
