@@ -91,7 +91,7 @@ async function carregarConta() {
     const res = await fetch(`${WORKER_URL}/conta`, { method: "POST", headers: { Authorization: await token() } });
     if (!res.ok) throw new Error();
     const r = await res.json();
-    $("inicio").textContent = r.inicio ? data(new Date(r.inicio)) : "—";
+    $("inicioConta").textContent = r.inicio ? data(new Date(r.inicio)) : "—";
     $("proxima").textContent = r.proximaCobranca ? data(new Date(r.proximaCobranca)) : "—";
     const itens = (r.pagamentos || []).map(p => {
       const li = document.createElement("li");
