@@ -107,3 +107,10 @@ body { display: flex; flex-direction: column; min-height: 100vh; }
   .campo input, .resumo { max-width: 480px; }
   .acao, .voltar { max-width: 480px; }
 }
+
+/* Minha conta no computador: coluna central de 480px. */
+@media (min-width: 1000px) {
+  #tituloConta { text-align: center; }
+  #entrar, #dados { max-width: 480px; margin-left: auto; margin-right: auto; }
+  #entrar .campo, #entrar .acao, #entrar .sub { max-width: 480px; }
+}
