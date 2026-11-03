@@ -1,11 +1,6 @@
 [hidden] { display: none !important; }
 
 /* Mobile primeiro: coluna única, alvos de toque de 56px, texto de campo 18px (evita zoom no iPhone). */
-.g-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; max-width: 560px; margin: 0 auto; padding: 16px; }
-.g-top { flex-wrap: wrap; }
-.g-nav { display: flex; flex-wrap: wrap; gap: 4px 16px; width: 100%; font-size: 14px; }
-.g-nav a { color: var(--muted); text-decoration: none; padding: 6px 0; min-height: 32px; }
-.g-nav a:hover { color: var(--text); }
 .conta { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
 .conta h2 { margin: 0 0 8px; font-size: 22px; }
 .chave { margin: 16px 0; }
@@ -86,12 +81,13 @@
 
 /* Tablet e computador: as duas opções lado a lado. */
 @media (min-width: 720px) {
-  .opcoes { grid-template-columns: 1fr 1fr; }
+  .opcoes { grid-template-columns: repeat(3, 1fr); }
+  .opcao { padding: 18px; }
 }
 
 /* Computador: colunas mais largas e texto maior. */
 @media (min-width: 1000px) {
-  .g-top, .g-main, .g-foot { max-width: 880px; }
+  .g-main, .g-foot { max-width: 880px; }
   .g-main { padding-top: 24px; }
   .etapa h1 { font-size: 44px; }
   .sub { font-size: 19px; margin-bottom: 32px; }

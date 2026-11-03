@@ -8,6 +8,7 @@
   --mono: ui-monospace, "Cascadia Mono", "Roboto Mono", Consolas, monospace;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { color-scheme: dark; }
 body {
   margin: 0; background: var(--bg); color: var(--text);
@@ -21,13 +22,25 @@ a { color: inherit; text-underline-offset: 3px; }
 section.wrap { padding-top: 48px; padding-bottom: 48px; }
 h2 { font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin: 0 0 20px; }
 
-.top { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; padding-top: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+/* Cabeçalho único de todas as páginas: logo + menu. Celular: menu em uma linha que rola para o lado. */
+.top { position: sticky; top: 0; z-index: 10; background: rgba(10,13,11,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top-in { max-width: 920px; margin: 0 auto; padding: 12px 16px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo span { display: flex; flex-direction: column; line-height: 1; }
 .logo b { font-style: italic; font-weight: 800; font-size: 19px; letter-spacing: .01em; }
 .logo small { font-family: var(--mono); color: var(--green); font-size: 11px; letter-spacing: .3em; margin-top: 4px; }
-nav a { margin-left: 18px; color: var(--muted); text-decoration: none; font-size: 15px; }
-nav a:hover { color: var(--text); }
+.menu { display: flex; gap: 6px; width: calc(100% + 32px); margin: 0 -16px; padding: 4px 16px 12px; overflow-x: auto; scrollbar-width: none; }
+.menu::-webkit-scrollbar { display: none; }
+.menu a { flex: none; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--silver); text-decoration: none; font-size: 14px; white-space: nowrap; }
+.menu a:hover { color: var(--text); border-color: var(--green-deep); }
+.menu a[aria-current="page"] { background: var(--green); border-color: var(--green); color: var(--green-ink); font-weight: 700; }
+@media (min-width: 720px) {
+  .top-in { flex-wrap: nowrap; padding: 14px 16px; }
+  .menu { width: auto; margin: 0; padding: 0; overflow: visible; gap: 4px; }
+  .menu a { border: 0; border-radius: 0; padding: 8px 12px; font-size: 15px; color: var(--muted); }
+  .menu a:hover { background: none; color: var(--text); }
+  .menu a[aria-current="page"] { background: none; color: var(--green); }
+}
 
 .hero { padding-top: 64px; }
 .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin: 0; }
@@ -98,11 +111,20 @@ footer p { margin: 4px 0; }
 
 /* Planos e promoção */
 .plan { position: relative; }
-.selo { display: inline-block; background: #f5a623; color: #1a1100; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 6px; padding: 2px 8px; }
-.selo[hidden], .antigo[hidden] { display: none; }
+.selo { display: inline-block; margin: 0 0 8px; background: #f5a623; color: #1a1100; font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 6px; padding: 4px 10px; }
 .antigo { font-size: 18px; color: var(--muted); font-weight: 400; }
-.promo { background: rgba(245,166,35,.12); border-bottom: 1px solid #b8921f; text-align: center; padding: 8px 16px; font-size: 14px; color: #ffd45c; }
-.promo a { color: inherit; }
+/* Plano anual em promoção: moldura âmbar e fundo quente (só aparece com o selo ligado) */
+.plan:has(.selo:not([hidden])) { border: 2px solid #f5a623; background: linear-gradient(180deg, rgba(245,166,35,.14), transparent 65%), var(--card); box-shadow: 0 18px 50px -20px rgba(245,166,35,.55); }
+.plan:has(.selo:not([hidden])) h3 { color: #ffd45c; }
+/* Faixa da promoção, logo abaixo do menu */
+.promo { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; padding: 12px 16px; position: relative; z-index: 2; color: #fff3d1; text-decoration: none; text-align: center; font-size: 15px; background: linear-gradient(90deg, #000, #1f1606 50%, #000); border-bottom: 2px solid #f5a623; }
+.promo-tag { font-family: var(--mono); font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; background: #f5a623; color: #1a1100; border-radius: 6px; padding: 4px 10px; }
+.promo-txt { display: block; max-width: 100%; line-height: 1.5; }
+.promo-txt b { color: #ffd45c; font-size: 19px; }
+.promo-txt s { color: var(--muted); }
+.promo-txt span { color: var(--silver); }
+.promo-cta { color: #ffd45c; font-weight: 700; white-space: nowrap; }
+.promo:hover .promo-cta { text-decoration: underline; }
 .row .btn { max-width: 100%; }
 .familia { margin: 16px 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; }
 .familia h3 { margin: 0 0 8px; font-size: 17px; }
@@ -240,7 +262,6 @@ footer p { margin: 4px 0; }
 /* ---- Palco fixo atrás da página: o mesmo celular 3D em todas as seções (cena.js) ----
    O palco é position: fixed e nunca é recortado por uma seção, por isso não há emenda entre seções. */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.top, .promo { position: relative; z-index: 2; }
 main, footer { position: relative; z-index: 1; }
 footer { background: var(--bg); }
 .estagio { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;

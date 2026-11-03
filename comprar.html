@@ -10,22 +10,22 @@
 <meta name="theme-color" content="#0A0D0B">
 <meta name="description" content="Compre o Rota Segura em 4 passos simples, direto do celular.">
 <script src="antiframe.js"></script>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <link rel="stylesheet" href="comprar.css">
 <script type="module" src="comprar.js"></script>
 </head>
 <body>
-<header class="g-top">
-  <a class="logo" href="./"><img src="logo.svg" alt="" width="34" height="34"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
-  <nav class="g-nav" aria-label="Páginas do site">
-    <a href="./">Início</a>
-    <a href="index.html#como">Como funciona</a>
-    <a href="index.html#planos">Planos</a>
-    <a href="tutorial.html">Tutoriais</a>
-    <a href="termos.html">Termos</a>
-    <a href="privacidade.html">Privacidade</a>
-    <a href="conta.html">Minha conta</a>
-  </nav>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
+    <nav class="menu" aria-label="Páginas do site">
+      <a href="index.html#como">Como funciona</a>
+      <a href="index.html#planos">Planos</a>
+      <a href="comprar.html" aria-current="page">Comprar</a>
+      <a href="tutorial.html">Tutoriais</a>
+      <a href="conta.html">Minha conta</a>
+    </nav>
+  </div>
 </header>
 
 <main class="g-main">
@@ -34,7 +34,7 @@
 
   <section id="passo1" class="etapa">
     <h1>Qual plano você quer?</h1>
-    <p class="sub">Os dois têm alarme com sirene, localização e até 3 contatos.</p>
+    <p class="sub">Anual e mensal têm alarme com sirene, localização e até 3 contatos. O gratuito só recebe os alertas.</p>
     <div class="opcoes">
       <button type="button" class="opcao escolha" data-plano="anual" aria-pressed="false">
         <span class="op-topo"><span>Anual</span><span class="badge">Mais vantajoso</span></span>
@@ -46,6 +46,11 @@
         <span class="op-topo"><span>Mensal</span></span>
         <span class="op-preco">R$ <span class="pMensal">9,90</span><small>/mês</small></span>
         <span class="op-txt">No cartão, todo mês. Cancele quando quiser.</span>
+      </button>
+      <button type="button" class="opcao escolha" data-plano="gratis" aria-pressed="false">
+        <span class="op-topo"><span>Gratuito</span></span>
+        <span class="op-preco">R$ 0</span>
+        <span class="op-txt">Recebe os alertas dos seus contatos. Sem pagamento.</span>
       </button>
     </div>
   </section>
@@ -84,13 +89,14 @@
 
   <section id="passo4" class="etapa" hidden>
     <h1>Tudo pronto!</h1>
-    <p class="sub"><b>Pagamento confirmado.</b> Agora é só instalar no celular Android.</p>
+    <p class="sub"><span id="pagoMsg"><b>Pagamento confirmado.</b> </span>Agora é só instalar no celular Android.</p>
     <a class="acao" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar o Rota Segura</a>
     <ol class="steps passos-instalar">
       <li>Abra o arquivo que foi baixado.</li>
       <li>Toque em <b>Instalar</b>. Se pedir, permita instalar desta fonte.</li>
       <li>Abra o app e entre com o <b>mesmo e-mail</b> desta compra.</li>
     </ol>
+    <p class="muted-c" id="avisoGratis" hidden>Plano gratuito: você recebe os alertas dos seus contatos. Para cadastrar até 3 contatos e enviar alertas, escolha o mensal ou o anual quando quiser.</p>
     <p class="muted-c"><a href="tutorial.html#instalar">Ficou com dúvida? Veja o passo a passo com imagens.</a></p>
   </section>
 

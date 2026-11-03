@@ -28,10 +28,12 @@ fetch(`${WORKER_URL}/precos`).then(r => r.ok ? r.json() : Promise.reject()).then
   if (p.promo) {
     const ate = p.promoAte ? new Date(p.promoAte) : null;
     const dia = ate ? new Date(ate.getTime() - 1000).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" }) : "";
+    const dias = ate ? Math.floor((ate - Date.now()) / 864e5) : 0;
     $("selo").textContent = p.promoNome || "Promoção";
     $("promoNome").textContent = p.promoNome || "Promoção";
     $("promoBannerPreco").textContent = `R$ ${brl(anual)}`;
-    $("promoBannerAte").textContent = dia;
+    $("promoBannerAntigo").textContent = `R$ ${brl(p.anual)}`;
+    $("promoContagem").textContent = dia ? (dias > 1 ? `faltam ${dias} dias · até ${dia}` : `até ${dia}`) : "";
     $("promoAte").textContent = dia ? ` Preço promocional até ${dia}.` : "";
   }
 }).catch(() => {});

@@ -10,17 +10,25 @@
 <meta name="theme-color" content="#0A0D0B">
 <meta name="description" content="Botão de pânico que dispara um alarme de sirene no celular de quem você confia, com sua localização.">
 <script src="antiframe.js"></script>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <script src="cena.js?v=4" defer></script>
 <script type="module" src="app.js"></script>
 </head>
 <body>
-<header class="wrap top">
-  <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
-  <nav><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="comprar.html">Comprar</a><a href="conta.html">Minha conta</a><a href="tutorial.html">Tutoriais</a></nav>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
+    <nav class="menu" aria-label="Páginas do site">
+      <a href="#como">Como funciona</a>
+      <a href="#planos">Planos</a>
+      <a href="comprar.html">Comprar</a>
+      <a href="tutorial.html">Tutoriais</a>
+      <a href="conta.html">Minha conta</a>
+    </nav>
+  </div>
 </header>
 
-<div id="promoBanner" class="promo" hidden><b id="promoNome">Black November</b> · Plano anual por <b id="promoBannerPreco">R$ 59,90</b> até <span id="promoBannerAte">30/11</span>. <a href="#planos">Ver planos</a></div>
+<a id="promoBanner" class="promo" href="#planos" hidden><span class="promo-tag" id="promoNome">Black November</span><span class="promo-txt">Plano anual por <b id="promoBannerPreco">R$ 59,90</b> <s id="promoBannerAntigo">R$ 79,90</s> <span id="promoContagem">até 30/11</span></span><span class="promo-cta">Ver oferta →</span></a>
 
 <!-- Palco fixo atrás da página inteira: o mesmo celular acompanha todas as seções (cena.js). -->
 <div class="estagio" id="estagio" aria-hidden="true">

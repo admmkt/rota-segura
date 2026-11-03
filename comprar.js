@@ -113,13 +113,17 @@ onAuthStateChanged(auth, user => {
 // Mostra só a tela do passo atual e atualiza a barra de progresso.
 function render() {
   // Quem já tem plano ativo só volta a comprar para trocar pelo anual.
+  // Gratuito pula o pagamento: conta (passo 2) e direto para o download (passo 4).
+  const gratis = plano === "gratis";
   const escolheu = plano && !(ativo && plano === "mensal");
-  const passo = escolheu ? (usuario ? 3 : 2) : (ativo ? 4 : 1);
+  const passo = gratis ? (usuario ? 4 : 2) : escolheu ? (usuario ? 3 : 2) : (ativo ? 4 : 1);
+  $("pagoMsg").hidden = gratis;
+  $("avisoGratis").hidden = !gratis;
   $("avisoTroca").hidden = !(plano === "anual" && ativo);
   for (let n = 1; n <= 4; n++) $(`passo${n}`).hidden = n !== passo;
   $("prog").dataset.step = passo;
   $("progTxt").textContent = `Passo ${passo} de 4`;
-  if (plano) {
+  if (plano && !gratis) {
     $("resumoPlano").textContent = NOMES[plano];
     $("resumoValor").textContent = `R$ ${brl(precoDo(plano))}`;
     $("pagarBtn").textContent = `Pagar R$ ${brl(precoDo(plano))} agora`;
