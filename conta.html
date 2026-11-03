@@ -57,6 +57,13 @@
       <p class="resumo-linha"><span>Próxima cobrança</span><b id="proxima">—</b></p>
     </div>
 
+    <form id="nomeForm" class="card-status">
+      <label for="nome">Seu nome (aparece nos alertas que você envia)</label>
+      <input id="nome" type="text" maxlength="40" autocomplete="name" required>
+      <button id="nomeBtn" class="acao sec" type="submit">Salvar nome</button>
+      <p id="nomeMsg" class="status"></p>
+    </form>
+
     <div class="card-status" id="statusBox">
       <p id="status" class="status"></p>
     </div>

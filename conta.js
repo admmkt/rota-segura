@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Dentro de frame (clickjacking) não mostra a conta; antiframe.js já escondeu a página.
@@ -46,6 +46,16 @@ $("login").onsubmit = e => {
     .catch(erro);
 };
 $("sair").onclick = () => signOut(auth);
+// Nome que aparece nos alertas: o app lê o displayName da conta ao enviar.
+$("nomeForm").onsubmit = async e => {
+  e.preventDefault();
+  const nome = $("nome").value.replace(/[\u0000-\u001f\u007f]/g, "").trim();
+  if (!nome || nome.length > 40) { $("nomeMsg").textContent = "Digite um nome de 1 a 40 caracteres."; return; }
+  try {
+    await updateProfile(auth.currentUser, { displayName: nome });
+    $("nomeMsg").textContent = "Nome salvo. Os próximos alertas já saem com ele.";
+  } catch { $("nomeMsg").textContent = "Não deu certo. Confira a internet e tente de novo."; }
+};
 
 onAuthStateChanged(auth, user => {
   stopConta?.(); stopConta = null;
@@ -54,6 +64,7 @@ onAuthStateChanged(auth, user => {
   $("dados").hidden = !logado;
   if (!logado) return;
   $("contaEmail").textContent = user.email;
+  $("nome").value = user.displayName || "";
   // O servidor grava paidUntil, plano, assinatura e cancelamento; a tela só mostra.
   stopConta = onSnapshot(doc(db, "users", user.uid), snap => render(snap.data() || {}),
     () => say("Não foi possível ler sua conta agora."));
