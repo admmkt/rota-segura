@@ -24,7 +24,7 @@ const brl = n => n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFr
 // Estado da venda: a tela certa sai daqui (plano -> conta -> pagamento -> download).
 // Link "Trocar para o anual" da Minha conta chega com ?plano=anual.
 const planoDaUrl = new URLSearchParams(location.search).get("plano");
-let plano = planoDaUrl === "anual" || planoDaUrl === "mensal" ? planoDaUrl : null;      // "mensal" | "anual"
+let plano = ["anual", "mensal", "gratis"].includes(planoDaUrl) ? planoDaUrl : null;      // "mensal" | "anual"
 let usuario = null;    // conta com e-mail confirmado
 let ativo = false;     // plano já liberado pelo servidor
 let precos = { mensal: 9.9, anual: 79.9 };
@@ -47,7 +47,7 @@ const CRIADA = "Se o e-mail estiver livre, criamos a conta e enviamos o link de 
 const ERROS = {
   "auth/invalid-credential": "E-mail ou senha incorretos.",
   "auth/email-already-in-use": CRIADA,
-  "auth/weak-password": "A senha precisa ter pelo menos 6 caracteres.",
+  "auth/weak-password": "A senha precisa ter pelo menos 8 caracteres, com letras e números.",
   "auth/invalid-email": "E-mail inválido.",
   "auth/too-many-requests": "Muitas tentativas. Espere alguns minutos.",
 };
@@ -110,6 +110,7 @@ onAuthStateChanged(auth, user => {
   render();
 });
 
+render(); // mostra já o plano pedido pela URL (?plano=), sem esperar o Firebase
 // Mostra só a tela do passo atual e atualiza a barra de progresso.
 function render() {
   // Quem já tem plano ativo só volta a comprar para trocar pelo anual.

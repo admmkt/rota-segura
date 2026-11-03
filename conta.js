@@ -18,6 +18,13 @@ auth.languageCode = "pt-BR";
 const db = getFirestore(app);
 const $ = id => document.getElementById(id);
 const say = text => { $("msg").textContent = text; };
+// Ações sensíveis (cancelar, excluir) pedem a senha de novo: sessão aberta em computador alheio não basta.
+const reautenticar = async () => {
+  const senha = prompt("Confirme sua senha para continuar:");
+  if (!senha) return false;
+  try { await signInWithEmailAndPassword(auth, auth.currentUser.email, senha); return true; }
+  catch { say("Senha incorreta."); return false; }
+};
 const token = async () => `Bearer ${await auth.currentUser.getIdToken()}`;
 const data = d => d.toLocaleDateString("pt-BR");
 const NOMES = { mensal: "Mensal", anual: "Anual", teste: "Teste", familia: "Família" };
@@ -139,6 +146,7 @@ $("fecharRecibo").onclick = () => { $("recibo").hidden = true; };
 
 $("cancelarBtn").onclick = async () => {
   if (!confirm("Cancelar a renovação? Você continua com acesso até a data da validade. Depois disso, não haverá novas cobranças.")) return;
+  if (!(await reautenticar())) return;
   const btn = $("cancelarBtn");
   btn.disabled = true;
   say("");
@@ -182,6 +190,7 @@ $("chaveBtn").onclick = async () => {
 // Excluir conta: cancela a assinatura; se houver período pago, apaga depois dele (regra do Worker).
 $("excluirBtn").onclick = async () => {
   if (!confirm("Excluir sua conta? A assinatura será cancelada e não haverá novas cobranças. Se você tiver um período pago, a conta continua funcionando até o fim dele e depois é apagada com todos os dados (contatos, alertas e localização). Essa ação não pode ser desfeita.")) return;
+  if (!(await reautenticar())) return;
   const btn = $("excluirBtn");
   btn.disabled = true;
   say("");
