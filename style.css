@@ -501,3 +501,10 @@ html.emFrame { display: none !important; }
   main.wrap p, main.wrap li { font-size: 17px; line-height: 1.7; }
   main.wrap h2 { margin-top: 48px; }
 }
+
+/* Páginas de apoio no computador: cabeçalho e conteúdo com a mesma largura e alinhados. */
+@media (min-width: 1000px) {
+  .apoio .top-in { max-width: 1040px; }
+  .apoio main.wrap { max-width: 1040px; }
+  .apoio main.wrap p, .apoio main.wrap li { max-width: 72ch; }
+}

@@ -95,7 +95,7 @@ body { display: flex; flex-direction: column; min-height: 100vh; }
 
 /* Computador: colunas mais largas e texto maior. */
 @media (min-width: 1000px) {
-  .g-main, .g-foot { max-width: 960px; }
+  .g-main, .g-foot { max-width: 1040px; }
   .g-main { padding-top: 56px; }
   .prog { margin-bottom: 0; }
   .etapa h1 { font-size: 44px; }
