@@ -88,3 +88,14 @@
 @media (min-width: 720px) {
   .opcoes { grid-template-columns: 1fr 1fr; }
 }
+
+/* Computador: colunas mais largas e texto maior. */
+@media (min-width: 1000px) {
+  .g-top, .g-main, .g-foot { max-width: 880px; }
+  .g-main { padding-top: 24px; }
+  .etapa h1 { font-size: 44px; }
+  .sub { font-size: 19px; margin-bottom: 32px; }
+  .opcao { padding: 28px; }
+  .op-preco { font-size: 40px; }
+  .campo input, .resumo { max-width: 480px; }
+}
