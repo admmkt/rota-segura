@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Dentro de frame (clickjacking) não mostra a conta; antiframe.js já escondeu a página.
@@ -46,15 +46,28 @@ $("login").onsubmit = e => {
     .catch(erro);
 };
 $("sair").onclick = () => signOut(auth);
-// Nome que aparece nos alertas: o app lê o displayName da conta ao enviar.
+// Nome que aparece nos alertas. Troca no servidor, no máximo uma vez a cada 30 dias.
 $("nomeForm").onsubmit = async e => {
   e.preventDefault();
   const nome = $("nome").value.replace(/[\u0000-\u001f\u007f]/g, "").trim();
   if (!nome || nome.length > 40) { $("nomeMsg").textContent = "Digite um nome de 1 a 40 caracteres."; return; }
+  $("nomeBtn").disabled = true;
   try {
-    await updateProfile(auth.currentUser, { displayName: nome });
-    $("nomeMsg").textContent = "Nome salvo. Os próximos alertas já saem com ele.";
+    const res = await fetch(`${WORKER_URL}/nome`, {
+      method: "POST",
+      headers: { Authorization: await token(), "Content-Type": "application/json" },
+      body: JSON.stringify({ nome }),
+    });
+    if (res.status === 429) {
+      const r = await res.json();
+      $("nomeMsg").textContent = `Você só pode trocar o nome a cada 30 dias. Próxima troca em ${data(new Date(r.proxima))}.`;
+    } else if (!res.ok) throw new Error();
+    else {
+      $("nomeMsg").textContent = `Nome trocado com sucesso para "${nome}". Os próximos alertas já saem com ele.`;
+      $("nome").value = nome;
+    }
   } catch { $("nomeMsg").textContent = "Não deu certo. Confira a internet e tente de novo."; }
+  finally { $("nomeBtn").disabled = false; }
 };
 
 onAuthStateChanged(auth, user => {
