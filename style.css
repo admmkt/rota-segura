@@ -361,8 +361,6 @@ footer { background: var(--bg); }
 .rolar::after { content: ""; display: block; width: 1px; height: 36px; margin: 10px auto 0; background: linear-gradient(var(--green), transparent); }
 .flash { position: absolute; inset: 0; z-index: 6; opacity: var(--flash, 0); background: radial-gradient(circle, rgba(229,72,77,.55), rgba(229,72,77,.08) 62%); }
 .veu { position: absolute; inset: 0; z-index: 9; background: #000; opacity: 0; visibility: hidden; }
-.som { position: fixed; right: 16px; bottom: 16px; z-index: 3; padding: 8px 14px; font-size: 14px; background: rgba(5,7,6,.78); transition: opacity .3s, visibility .3s; }
-.som.sai { opacity: 0; visibility: hidden; }
 
 /* Abertura: tela preta, o celular sobe de costas até mostrar ~35% do topo */
 .js .veu { animation: veu-some 1.3s ease .2s both; }
@@ -374,6 +372,17 @@ footer { background: var(--bg); }
 .rolar { display: none; }
 .js .rolar { display: block; animation: rolar-entra .8s ease 2.6s both; }
 @keyframes rolar-entra { from { opacity: 0; translate: -50% 10px; } }
+
+/* Sazonal Black November (index.html, classe nov-page): mesmos elementos da home, com destaques verdes */
+.nov-chip { margin: 16px 0 0; font-size: 17px; color: var(--silver); }
+.nov-chip b { color: var(--green); font-size: 20px; }
+.nov-chip s { color: var(--muted); }
+.nov-tag { display: inline-block; margin-right: 6px; font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; background: var(--green); color: var(--green-ink); padding: 4px 9px; border-radius: 6px; }
+.nov-menu { color: var(--green) !important; font-weight: 700; }
+.menu a.nov-menu { border-color: var(--green-deep); }
+.nov-page .selo { background: var(--green); color: var(--green-ink); }
+.nov-page .plan:has(.selo:not([hidden])) { border-color: var(--green); background: linear-gradient(180deg, rgba(110,245,42,.12), transparent 65%), var(--card); box-shadow: 0 18px 50px -20px rgba(110,245,42,.5); }
+.nov-page .plan:has(.selo:not([hidden])) h3 { color: var(--green); }
 
 /* Seção da cena: só espaço de rolagem (o palco é fixo) */
 .cena { height: 0; }
@@ -400,7 +409,6 @@ footer { background: var(--bg); }
 /* Celular e tablet: o celular aparece numa "vitrine" transparente acima de cada seção; o texto tem fundo próprio */
 @media (max-width: 899px) {
   .estagio .fone { --w: min(44vh, 60vw); }
-  .som { top: auto; bottom: 14px; left: 50%; right: auto; transform: translateX(-50%); white-space: nowrap; padding: 8px 14px; font-size: 13px; }
   main:not(.tut) > .wrap:not(.passeio) { background: var(--grid-bg); }
   main:not(.tut) > .wrap.vit { padding-top: calc(72vh + 40px); padding-top: calc(72svh + 40px); background: linear-gradient(to bottom, transparent 72vh, var(--bg) 72vh) 0 0 / 100% 100% no-repeat, var(--grid-lines); background: linear-gradient(to bottom, transparent 72svh, var(--bg) 72svh) 0 0 / 100% 100% no-repeat, var(--grid-lines); }
   .passeio { padding-bottom: 0; }
@@ -426,7 +434,7 @@ footer { background: var(--bg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .js .veu, .js #foneA, .js .top, .js .rolar, .feixe i, .estagio .corpo { animation: none; }
-  .estagio .tela img, .som { transition: none; }
+  .estagio .tela img { transition: none; }
 }
 
 /* Seções com o celular à esquerda: o texto fica à direita, na metade livre */
@@ -446,3 +454,39 @@ footer { background: var(--bg); }
 
 /* Página aberta dentro de frame de outro site (antiframe.js): não mostra nada. */
 html.emFrame { display: none !important; }
+
+/* Abertura da home (index.html): texto ao lado do celular no computador, acima dele no celular */
+.abre { position: relative; z-index: 2; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 72px max(16px, 4vw) 48px; }
+.abre-txt { max-width: min(288px, 22vw); }
+.abre .nov-chip b { white-space: nowrap; }
+.abre h1 { font-size: clamp(30px, 2.7vw, 42px); line-height: 1.05; letter-spacing: -.02em; font-weight: 800; margin: 14px 0 16px; text-wrap: balance; }
+.abre .eyebrow { color: var(--green); }
+.abre-lista { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; }
+.abre-lista li { position: relative; padding-left: 26px; color: var(--silver); font-size: 16px; }
+.abre-lista li::before { content: ""; position: absolute; left: 4px; top: .55em; width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(110,245,42,.18); }
+.abre .cta { margin-top: 26px; flex-direction: column; } .abre .cta .btn { text-align: center; }
+@media (max-width: 899px) {
+  .abre { min-height: auto; align-items: flex-start; padding-top: 96px; padding-bottom: 24px; }
+  .abre-txt { max-width: none; padding: 18px; border-radius: 16px; background: rgba(10,13,11,.92); border: 1px solid var(--line); }
+  .abre h1 { font-size: 32px; }
+}
+.abre-preco { margin: 14px 0 0; font-size: 17px; color: var(--silver); }
+.abre-preco b { color: var(--green); font-size: 26px; white-space: nowrap; }
+.abre-preco s { color: var(--muted); }
+.abre-mes { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
+.abre-garantia { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+.abre-preco s { white-space: nowrap; }
+/* Chamada da promoção: título grande, selo de desconto, cronômetro e botão que pulsa */
+.abre-txt { position: relative; }
+.nov-display { margin: 8px 0 0; font-family: var(--mono); font-weight: 800; font-size: clamp(34px, 3.4vw, 50px); line-height: .95; letter-spacing: -.02em; color: var(--green); text-transform: uppercase; text-shadow: 0 0 24px rgba(110,245,42,.35); }
+.badge-pct { position: absolute; right: -40px; top: -22px; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; align-content: center; text-align: center; background: var(--red); color: #fff; transform: rotate(10deg); box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--green); }
+.badge-pct b { display: block; font-size: 26px; font-weight: 900; line-height: 1; }
+.badge-pct small { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+.cronometro { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 288px; margin: 16px 0 0; }
+.cronometro div { background: var(--card); border: 1px solid var(--green-deep); border-radius: 10px; padding: 8px 0; text-align: center; }
+.cronometro b { display: block; font-family: var(--mono); font-size: 24px; color: var(--green); font-variant-numeric: tabular-nums; }
+.cronometro small { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.abre .cta .btn:first-child { animation: pulsa 2s infinite; }
+@keyframes pulsa { 0% { box-shadow: 0 0 0 0 rgba(110,245,42,.55); } 70% { box-shadow: 0 0 0 16px rgba(110,245,42,0); } 100% { box-shadow: 0 0 0 0 rgba(110,245,42,0); } }
+@media (max-width: 899px) { .badge-pct { right: 8px; top: -30px; } }
+@media (prefers-reduced-motion: reduce) { .abre .cta .btn:first-child { animation: none; } }

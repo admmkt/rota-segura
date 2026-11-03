@@ -7,7 +7,8 @@ if (top !== self) throw new Error("em frame");
 // Endereço do Worker de pagamentos (worker/).
 const WORKER_URL = "https://rota-segura-pagamentos.dgarpiedits.workers.dev";
 
-const $ = id => document.getElementById(id);
+// Elemento que não existe nesta página vira um nó descartável (assim o resto do script continua).
+const $ = id => document.getElementById(id) || document.createElement("span");
 const brl = n => n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const setAll = (cls, txt) => document.querySelectorAll("." + cls).forEach(e => { e.textContent = txt; });
 
@@ -35,5 +36,19 @@ fetch(`${WORKER_URL}/precos`).then(r => r.ok ? r.json() : Promise.reject()).then
     $("promoBannerAntigo").textContent = `R$ ${brl(p.anual)}`;
     $("promoContagem").textContent = dia ? (dias > 1 ? `faltam ${dias} dias · até ${dia}` : `até ${dia}`) : "";
     $("promoAte").textContent = dia ? ` Preço promocional até ${dia}.` : "";
+    $("descPct").textContent = `−${Math.round((1 - anual / p.anual) * 100)}%`;
+    // Cronômetro ao vivo até o fim da promoção (só existe na página inicial de novembro).
+    if (ate) {
+      const tick = () => {
+        const t = Math.max(0, ate - Date.now());
+        const pad = n => String(n).padStart(2, "0");
+        $("cdDias").textContent = pad(Math.floor(t / 864e5));
+        $("cdHoras").textContent = pad(Math.floor(t % 864e5 / 36e5));
+        $("cdMin").textContent = pad(Math.floor(t % 36e5 / 6e4));
+        $("cdSeg").textContent = pad(Math.floor(t % 6e4 / 1e3));
+      };
+      tick();
+      setInterval(tick, 1000);
+    }
   }
 }).catch(() => {});

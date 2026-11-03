@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; connect-src 'self' https://*.googleapis.com https://rota-segura-pagamentos.dgarpiedits.workers.dev; frame-src https://rota-segura-3a7d8.firebaseapp.com; img-src 'self' data:; style-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Rota Segura do Goes</title>
+<title>Black November · Rota Segura do Goes</title>
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0A0D0B">
 <meta name="description" content="Botão de pânico que dispara um alarme de sirene no celular de quem você confia, com sua localização.">
@@ -14,11 +14,12 @@
 <script src="cena.js?v=4" defer></script>
 <script type="module" src="app.js"></script>
 </head>
-<body>
+<body class="nov-page">
 <header class="top">
   <div class="top-in">
     <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
     <nav class="menu" aria-label="Páginas do site">
+      <a href="comprar.html" class="nov-menu">Black November</a>
       <a href="#como">Como funciona</a>
       <a href="#planos">Planos</a>
       <a href="comprar.html">Comprar</a>
@@ -28,7 +29,6 @@
   </div>
 </header>
 
-<a id="promoBanner" class="promo" href="#planos" hidden><span class="promo-tag" id="promoNome">Black November</span><span class="promo-txt">Plano anual por <b id="promoBannerPreco">R$ 59,90</b> <s id="promoBannerAntigo">R$ 79,90</s> <span id="promoContagem">até 30/11</span></span><span class="promo-cta">Ver oferta →</span></a>
 
 <!-- Palco fixo atrás da página inteira: o mesmo celular acompanha todas as seções (cena.js). -->
 <div class="estagio" id="estagio" aria-hidden="true">
@@ -78,9 +78,37 @@
   <div class="flash"></div>
   <div class="veu"></div>
 </div>
-<button id="somBtn" class="btn ghost som" type="button">Ativar som</button>
 
 <main>
+  <!-- Abertura: texto ao lado do celular (desktop) ou acima dele (celular). O celular fica fixo atrás. -->
+  <section class="abre" aria-labelledby="abre-t">
+    <div class="abre-txt">
+      <span class="badge-pct" aria-hidden="true"><b id="descPct">−25%</b><small>OFF</small></span>
+      <p class="eyebrow">Oferta por tempo limitado</p>
+      <p class="nov-display">Black<br>November</p>
+      <h1 id="abre-t">Em perigo, um toque avisa quem você confia.</h1>
+      <p class="abre-preco">Plano anual por <b id="promoBannerPreco">R$ 59,90</b> <s id="promoBannerAntigo">R$ 79,90</s></p>
+      <p class="nov-chip"><span class="nov-tag" id="promoNome">Black November</span> <span id="promoContagem">até 30/11</span></p>
+      <div class="cronometro" role="timer" aria-label="Tempo que falta para o fim da oferta">
+        <div><b id="cdDias">00</b><small>dias</small></div>
+        <div><b id="cdHoras">00</b><small>horas</small></div>
+        <div><b id="cdMin">00</b><small>min</small></div>
+        <div><b id="cdSeg">00</b><small>seg</small></div>
+      </div>
+      <p class="abre-mes">Menos de R$ 5 por mês. Pague uma vez, sem assinatura.</p>
+      <ul class="abre-lista">
+        <li>Sirene em tela cheia, mesmo no silencioso</li>
+        <li>Sua localização no mapa, enviada na hora</li>
+        <li>Até 3 contatos recebem o alarme</li>
+      </ul>
+      <div class="cta">
+        <a class="btn" href="comprar.html">Quero proteção por R$ <span class="pAnual">59,90</span></a>
+        <a class="btn ghost" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar grátis</a>
+      </div>
+      <p class="abre-garantia">Pix ou cartão. Você tem 7 dias para desistir com reembolso.</p>
+    </div>
+  </section>
+
   <section id="cena" class="cena" aria-label="Como o alerta funciona">
     <p class="sr-only">Uma pessoa pensa: tem alguém me seguindo, estou com medo, preciso de ajuda agora. Ela toca o botão de pânico do Rota Segura e o celular de um contato recebe na hora um alarme de sirene com a localização dela. Proteção que chega antes do silêncio.</p>
   </section>
@@ -90,7 +118,8 @@
     <h1>Um toque. Quem você confia é avisado na hora.</h1>
     <p>O Rota Segura coloca um botão de pânico na sua tela. Ao tocar, seus contatos recebem um <b>alarme de sirene em tela cheia</b>, mesmo com o celular no silencioso, com o link da sua localização no mapa. <b>Funciona de app para app: seus contatos também instalam o Rota Segura</b> (para eles, o plano gratuito basta).</p>
     <div class="cta">
-      <a class="btn" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar para Android</a>
+      <a class="btn" href="comprar.html">Garantir a oferta</a>
+      <a class="btn ghost" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar para Android</a>
       <a class="btn ghost" href="#planos">Ver planos</a>
       <a class="btn ghost" href="tutorial.html#instalar">Como instalar</a>
     </div>

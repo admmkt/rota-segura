@@ -114,9 +114,9 @@
 
   const feixe = document.getElementById("feixe"), cabeca = est.querySelector(".sinal"), anel = est.querySelector(".impacto");
   const frases = [...est.querySelectorAll(".frase")], protecao = est.querySelector(".protecao"), rolar = est.querySelector(".rolar");
-  const somBtn = document.getElementById("somBtn");
 
-  let disparou = false, sirenePlay = false, somOn = false;
+
+  let disparou = false, sirenePlay = false;
   function desenha(d) {
     const mv = estreito.matches, vw = innerWidth / 100, vh = innerHeight / 100;
     const W = palco.offsetWidth, H = palco.offsetHeight;
@@ -203,7 +203,6 @@
 
     sete(est, "--flash", Math.max(toque * 0.35, impacto * 0.8) * (1 - sai));
     sete(est, "--halo", 0.7 - 0.3 * fase(d, 0.78, 0.9));
-    if (somBtn) somBtn.classList.toggle("sai", t0 >= 1);
   // Celular: depois da cena, o celular 3D some (cada bloco mostra o print dele, em CSS)
   est.classList.toggle("sumiu", mv && t0 > 0);
 
@@ -215,79 +214,8 @@
     marcosEm(d);
   }
 
-  // ---- Som (Web Audio, só depois de um toque no botão) ----
-  // ---- Sons de efeito (Web Audio, sintetizados: sem arquivos). Começam ligados; o navegador libera o áudio no primeiro gesto. ----
-  const AC = window.AudioContext || window.webkitAudioContext;
-  let ctx = null, ruido = null;
-  try { somOn = localStorage.getItem("rs-som") !== "0"; } catch (e) { somOn = true; }
-  function audio() {
-    if (!AC) return null;
-    if (!ctx) {
-      ctx = new AC();
-      const n = ctx.sampleRate * 2, buf = ctx.createBuffer(1, n, ctx.sampleRate), dados = buf.getChannelData(0);
-      for (let i = 0; i < n; i++) dados[i] = Math.random() * 2 - 1;
-      ruido = buf;
-    }
-    if (ctx.state === "suspended") ctx.resume();
-    return ctx;
-  }
-  // Ruído filtrado com varredura de frequência: whoosh (sobe ou desce), riser (sobe e cresce)
-  function varredura(ini, fim, dur, vol, tipo, f0, f1) {
-    const c = audio(); if (!c || !somOn) return;
-    const t = c.currentTime, src = c.createBufferSource(), flt = c.createBiquadFilter(), g = c.createGain();
-    src.buffer = ruido; flt.type = tipo; flt.Q.value = 0.9;
-    flt.frequency.setValueAtTime(ini, t); flt.frequency.exponentialRampToValueAtTime(fim, t + dur);
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + dur * 0.35); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    src.connect(flt).connect(g).connect(c.destination); src.start(t, Math.random(), dur);
-  }
-  const whoosh = (sobe) => sobe ? varredura(300, 4200, 0.9, 0.09, "bandpass") : varredura(4000, 260, 0.9, 0.09, "bandpass");
-  const riser = () => varredura(200, 6000, 1.4, 0.06, "highpass");
-  // Impacto grave: seno que cai + estouro de ruído
-  function impacto() {
-    const c = audio(); if (!c || !somOn) return;
-    const t = c.currentTime, o = c.createOscillator(), g = c.createGain();
-    o.type = "sine"; o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(38, t + 0.7);
-    g.gain.setValueAtTime(0.3, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
-    o.connect(g).connect(c.destination); o.start(t); o.stop(t + 0.95);
-    varredura(2500, 400, 0.35, 0.12, "lowpass");
-  }
-  // Clique curto no botão
-  function clique() {
-    const c = audio(); if (!c || !somOn) return;
-    const t = c.currentTime, o = c.createOscillator(), g = c.createGain();
-    o.type = "square"; o.frequency.setValueAtTime(1800, t); o.frequency.exponentialRampToValueAtTime(600, t + 0.06);
-    g.gain.setValueAtTime(0.04, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
-    o.connect(g).connect(c.destination); o.start(t); o.stop(t + 0.1);
-  }
-  function sirene(seg) {
-    const c = audio(); if (!c || !somOn) return;
-    const t = c.currentTime, o = c.createOscillator(), g = c.createGain();
-    o.type = "square"; o.frequency.setValueAtTime(700, t);
-    for (let k = 1; k * 0.4 <= seg; k++) o.frequency.linearRampToValueAtTime(k % 2 ? 1250 : 700, t + k * 0.4);
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.035, t + 0.05);
-    g.gain.setValueAtTime(0.035, t + seg - 0.1); g.gain.exponentialRampToValueAtTime(0.0001, t + seg);
-    o.connect(g).connect(c.destination); o.start(t); o.stop(t + seg);
-  }
-  // Primeiro gesto libera o áudio (política dos navegadores)
-  // Só clique, toque ou tecla liberam o áudio (rolagem não conta como gesto para o navegador)
-  const GESTOS = ["pointerdown", "keydown", "touchend"];
-  let rotula = () => {};
-  const liberar = () => { audio(); GESTOS.forEach(ev => removeEventListener(ev, liberar)); rotula(); };
-  GESTOS.forEach(ev => addEventListener(ev, liberar, { passive: true }));
-  const bloqueado = () => somOn && (!ctx || ctx.state !== "running");
-  if (somBtn) {
-    if (!AC) somBtn.remove();
-    else {
-      rotula = () => { somBtn.textContent = !somOn ? "Ativar som" : bloqueado() ? "Toque para ativar o som" : "Som ligado"; somBtn.setAttribute("aria-pressed", somOn ? "true" : "false"); };
-      rotula();
-      somBtn.addEventListener("click", () => {
-        somOn = !somOn;
-        try { localStorage.setItem("rs-som", somOn ? "1" : "0"); } catch (e) { /* ignora */ }
-        rotula();
-        if (somOn) { audio(); whoosh(true); }
-      });
-    }
-  }
+  // Efeitos sonoros removidos a pedido: sem áudio no site. As funções ficam como no-op para os marcos não quebrarem.
+  const whoosh = () => {}, riser = () => {}, impacto = () => {}, clique = () => {}, sirene = () => {};
   // Disparos por posição da rolagem (uma vez por cruzamento, com intervalo mínimo)
   const marcos = [
     { at: 0.04, fn: () => whoosh(true) },   // celular sobe
