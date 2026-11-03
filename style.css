@@ -490,3 +490,14 @@ html.emFrame { display: none !important; }
 @keyframes pulsa { 0% { box-shadow: 0 0 0 0 rgba(110,245,42,.55); } 70% { box-shadow: 0 0 0 16px rgba(110,245,42,0); } 100% { box-shadow: 0 0 0 0 rgba(110,245,42,0); } }
 @media (max-width: 899px) { .badge-pct { right: 8px; top: -30px; } }
 @media (prefers-reduced-motion: reduce) { .abre .cta .btn:first-child { animation: none; } }
+
+/* Rodapé: versão do app Android (preenchida por versao.js). */
+.versao { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+
+/* Computador: páginas de apoio. A home não usa estas regras. */
+@media (min-width: 1000px) {
+  .caps { grid-template-columns: repeat(4, 1fr); }
+  .caps a { padding: 20px; }
+  main.wrap p, main.wrap li { font-size: 17px; line-height: 1.7; }
+  main.wrap h2 { margin-top: 48px; }
+}
