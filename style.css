@@ -416,7 +416,8 @@ footer { background: var(--bg); }
   .passeio > h2 { margin: 0 -16px; padding: 24px 16px 8px; background: var(--grid-bg); }
   .passo { margin: 0 -16px; padding: 24px 16px; background: var(--grid-bg); }
   .passo.vit { padding-top: calc(72vh + 24px); padding-top: calc(72svh + 24px); background: linear-gradient(to bottom, transparent 72vh, var(--bg) 72vh) 0 0 / 100% 100% no-repeat, var(--grid-lines); background: linear-gradient(to bottom, transparent 72svh, var(--bg) 72svh) 0 0 / 100% 100% no-repeat, var(--grid-lines); }
-  .frase { left: 16px; right: 16px; top: 8vh; translate: none; max-width: none; font-size: 26px; padding: 14px 18px; }
+  /* Abaixo do cabeçalho fixo (logo + menu ocupam ~150px no celular), senão a frase fica escondida ao rolar. */
+  .frase { left: 16px; right: 16px; top: max(8vh, 156px); translate: none; max-width: none; font-size: 26px; padding: 14px 18px; }
   .protecao { bottom: calc(4vh + 52px); font-size: 15px; }
   .protecao b { font-size: 26px; }
   .rolar { top: 26vh; }
