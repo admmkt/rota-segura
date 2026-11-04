@@ -517,6 +517,11 @@ html.emFrame { display: none !important; }
 @keyframes girar { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .carregando::after { animation-duration: 2.5s; } }
 
+/* Quem só recebe alertas não assina (bloco abaixo dos planos na home) */
+.quem-recebe { max-width: 680px; margin: 24px auto 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); color: var(--silver); line-height: 1.55; }
+.quem-recebe p { margin: 0 0 10px; }
+.quem-recebe p:last-child { margin-bottom: 0; }
+
 /* Assistente de ajuda (ajuda.js): botão flutuante e painel de conversa */
 .ajuda-botao { position: fixed; right: 16px; bottom: 16px; z-index: 50; min-height: 48px; padding: 12px 18px; border: 0; border-radius: 999px; background: var(--green); color: var(--green-ink); font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
 .ajuda-painel { position: fixed; right: 16px; bottom: 76px; z-index: 51; width: min(380px, calc(100vw - 32px)); max-height: min(560px, 75vh); display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 16px 40px rgba(0,0,0,.6); overflow: hidden; }
