@@ -146,7 +146,6 @@ function render(d) {
   $("status").textContent = texto;
   $("status").className = "status " + tom;
 
-  $("baixarBtn").hidden = !ativo;
   $("comprarBtn").hidden = ativo;
   $("cancelarBtn").hidden = !(ativo && recorrente && !cancelada);
   $("trocarBtn").hidden = !(ativo && recorrente);
