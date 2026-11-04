@@ -509,3 +509,9 @@ html.emFrame { display: none !important; }
   .apoio main.wrap { max-width: 1040px; }
   .apoio main.wrap p, .apoio main.wrap li { max-width: 72ch; }
 }
+
+/* Botão ocupado: mostra que o toque foi recebido (evita clicar várias vezes enquanto o servidor responde). */
+.carregando { position: relative; cursor: wait !important; }
+.carregando::after { content: ""; display: inline-block; width: 14px; height: 14px; margin-left: 10px; vertical-align: -2px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: girar .7s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .carregando::after { animation-duration: 2.5s; } }

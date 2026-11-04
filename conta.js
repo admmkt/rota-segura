@@ -17,6 +17,7 @@ const auth = getAuth(app);
 auth.languageCode = "pt-BR";
 const db = getFirestore(app);
 const $ = id => document.getElementById(id);
+const ocupar = (b, on) => { b.disabled = on; b.classList.toggle("carregando", on); };
 const say = text => { $("msg").textContent = text; };
 // Ações sensíveis (cancelar, excluir) pedem a senha de novo: sessão aberta em computador alheio não basta.
 const reautenticar = async () => {
@@ -51,7 +52,7 @@ $("nomeForm").onsubmit = async e => {
   e.preventDefault();
   const nome = $("nome").value.replace(/[\u0000-\u001f\u007f]/g, "").trim();
   if (!nome || nome.length > 40) { $("nomeMsg").textContent = "Digite um nome de 1 a 40 caracteres."; return; }
-  $("nomeBtn").disabled = true;
+  ocupar($("nomeBtn"), true);
   try {
     const res = await fetch(`${WORKER_URL}/nome`, {
       method: "POST",
@@ -67,7 +68,7 @@ $("nomeForm").onsubmit = async e => {
       $("nome").value = nome;
     }
   } catch { $("nomeMsg").textContent = "Não deu certo. Confira a internet e tente de novo."; }
-  finally { $("nomeBtn").disabled = false; }
+  finally { ocupar($("nomeBtn"), false); }
 };
 
 onAuthStateChanged(auth, user => {
@@ -105,13 +106,13 @@ function iniciarConferencia() {
 }
 $("jaPagueiBtn").onclick = async () => {
   const btn = $("jaPagueiBtn");
-  btn.disabled = true;
+  ocupar(btn, true);
   $("jaPagueiMsg").textContent = "Conferindo...";
   const liberou = await conferir();
   $("jaPagueiMsg").textContent = liberou
     ? "Pagamento reconhecido! Seu plano já está ativo."
     : "Ainda não apareceu. Aguarde alguns minutos e toque de novo. Se o valor foi cobrado e não liberar, fale com a gente.";
-  btn.disabled = false;
+  ocupar(btn, false);
 };
 
 // Início, próxima cobrança e pagamentos vêm do Worker (lidos do Mercado Pago).
@@ -204,7 +205,7 @@ $("cancelarBtn").onclick = async () => {
   if (!confirm("Cancelar a renovação? Você continua com acesso até a data da validade. Depois disso, não haverá novas cobranças.")) return;
   if (!(await reautenticar())) return;
   const btn = $("cancelarBtn");
-  btn.disabled = true;
+  ocupar(btn, true);
   say("");
   try {
     const res = await fetch(`${WORKER_URL}/cancelar`, { method: "POST", headers: { Authorization: await token() } });
@@ -214,14 +215,14 @@ $("cancelarBtn").onclick = async () => {
     carregarConta();
   } catch {
     say("Não foi possível cancelar agora. Tente de novo.");
-    btn.disabled = false;
+    ocupar(btn, false);
   }
 };
 
 // Chave de teste: o Worker confere e libera 30 dias.
 $("chaveBtn").onclick = async () => {
   const btn = $("chaveBtn");
-  btn.disabled = true;
+  ocupar(btn, true);
   say("");
   try {
     const res = await fetch(`${WORKER_URL}/chave`, {
@@ -240,7 +241,7 @@ $("chaveBtn").onclick = async () => {
   } catch {
     say("Não foi possível conferir a chave agora. Tente de novo.");
   }
-  btn.disabled = false;
+  ocupar(btn, false);
 };
 
 // Excluir conta: cancela a assinatura; se houver período pago, apaga depois dele (regra do Worker).
@@ -248,7 +249,7 @@ $("excluirBtn").onclick = async () => {
   if (!confirm("Excluir sua conta? A assinatura será cancelada e não haverá novas cobranças. Se você tiver um período pago, a conta continua funcionando até o fim dele e depois é apagada com todos os dados (contatos, alertas e localização). Essa ação não pode ser desfeita.")) return;
   if (!(await reautenticar())) return;
   const btn = $("excluirBtn");
-  btn.disabled = true;
+  ocupar(btn, true);
   say("");
   try {
     const res = await fetch(`${WORKER_URL}/excluir`, {
@@ -267,5 +268,5 @@ $("excluirBtn").onclick = async () => {
   } catch {
     say("Não foi possível excluir a conta agora. Tente de novo.");
   }
-  btn.disabled = false;
+  ocupar(btn, false);
 };

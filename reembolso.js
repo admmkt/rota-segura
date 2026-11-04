@@ -15,6 +15,7 @@ const app = initializeApp({
 const auth = getAuth(app);
 auth.languageCode = "pt-BR";
 const $ = id => document.getElementById(id);
+const ocupar = (b, on) => { b.disabled = on; b.classList.toggle("carregando", on); };
 const say = text => { $("msg").textContent = text; };
 const brl = n => Number(n).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -45,7 +46,7 @@ $("entrar").onsubmit = e => {
 $("pedirBtn").onclick = async () => {
   if (!$("confirma").checked) return say("Marque a caixinha para confirmar.");
   const btn = $("pedirBtn");
-  btn.disabled = true;
+  ocupar(btn, true);
   say("Enviando o pedido...");
   try {
     const res = await fetch(`${WORKER_URL}/reembolso`, {
@@ -63,6 +64,6 @@ $("pedirBtn").onclick = async () => {
   } catch {
     say(MENSAGENS.mp);
   } finally {
-    btn.disabled = false;
+    ocupar(btn, false);
   }
 };

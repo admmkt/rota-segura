@@ -17,6 +17,7 @@ const auth = getAuth(app);
 auth.languageCode = "pt-BR";
 const db = getFirestore(app);
 const $ = id => document.getElementById(id);
+const ocupar = (b, on) => { b.disabled = on; b.classList.toggle("carregando", on); };
 const say = text => { $("msg").textContent = text; };
 const token = async () => `Bearer ${await auth.currentUser.getIdToken()}`;
 const brl = n => n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -72,17 +73,22 @@ document.querySelectorAll("[data-voltar]").forEach(b => b.onclick = () => {
 $("login").onsubmit = e => {
   e.preventDefault();
   say("");
+  const b = $("entrar");
+  ocupar(b, true);
   signInWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value)
     .then(c => {
       if (c.user.emailVerified) return;
       say(`Seu e-mail ainda não foi confirmado. Abra o link que enviamos para ${c.user.email} (veja também o spam) e entre de novo.`);
       sendEmailVerification(c.user).catch(() => {});
     })
-    .catch(erro);
+    .catch(erro)
+    .finally(() => ocupar(b, false));
 };
 $("criar").onclick = () => {
   if (!$("login").reportValidity()) return;
   say("");
+  const b = $("criar");
+  ocupar(b, true);
   createUserWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value)
     .then(c => sendEmailVerification(c.user))
     .then(() => {
@@ -92,7 +98,8 @@ $("criar").onclick = () => {
       $("entrar").classList.remove("sec");
       say(CRIADA);
     })
-    .catch(erro);
+    .catch(erro)
+    .finally(() => ocupar(b, false));
 };
 
 // Confere o plano em tempo real; o passo 4 aparece sozinho quando o servidor confirma.
@@ -142,7 +149,7 @@ function render() {
 
 // Passo 3: pagamento no Mercado Pago (mesmos endpoints do site principal).
 async function pagar(btn) {
-  btn.disabled = true;
+  ocupar(btn, true);
   say("");
   try {
     const [path, body] = plano === "anual"
@@ -159,14 +166,14 @@ async function pagar(btn) {
     location.href = data.url;
   } catch (e) {
     say(e.message === "email" ? "Confira o e-mail do Mercado Pago." : "Não foi possível abrir o pagamento. Tente de novo.");
-    btn.disabled = false;
+    ocupar(btn, false);
   }
 }
 $("pagarBtn").onclick = () => pagar($("pagarBtn"));
 
 async function verificar(avisar) {
   const btn = $("verificarBtn");
-  btn.disabled = true;
+  ocupar(btn, true);
   try {
     const res = await fetch(`${WORKER_URL}/verificar`, { method: "POST", headers: { Authorization: await token() } });
     const data = await res.json().catch(() => ({}));
@@ -176,6 +183,6 @@ async function verificar(avisar) {
   } catch {
     if (avisar) say("Não foi possível verificar agora. Tente de novo.");
   }
-  btn.disabled = false;
+  ocupar(btn, false);
 }
 $("verificarBtn").onclick = () => { say(""); verificar(true); };
