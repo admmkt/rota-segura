@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="antiframe.js"></script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com/firebasejs/10.12.2/; style-src 'self'; connect-src 'self' https://*.googleapis.com https://rota-segura-pagamentos.dgarpiedits.workers.dev; base-uri 'none'; form-action 'none'">
+<meta name="description" content="Como pedir reembolso do Rota Segura: você tem 7 dias para desistir da compra.">
+<title>Pedir reembolso — Rota Segura</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="apoio">
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="./"><img src="logo.svg" alt="" width="36" height="36"><span><b>ROTA SEGURA</b><small>do Goes</small></span></a>
+    <nav class="menu" aria-label="Páginas do site">
+      <a href="baixar.html">Baixar o app</a>
+      <a href="index.html#como">Como funciona</a>
+      <a href="index.html#planos">Planos</a>
+      <a href="comprar.html">Comprar</a>
+      <a href="tutorial.html">Tutoriais</a>
+      <a href="conta.html">Minha conta</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Pedir reembolso</h1>
+  <p class="sub">Você pode desistir da compra e receber o valor de volta, sem explicar o motivo.</p>
+
+  <h2>Prazo</h2>
+  <p>Você tem <b>7 dias após a contratação</b> para desistir, com reembolso total (Código de Defesa do Consumidor, art. 49). No plano anual, o prazo conta da data da compra.</p>
+
+  <h2>Pedir reembolso</h2>
+  <form id="entrar" hidden>
+    <p class="muted">Entre com a conta do Rota Segura para confirmar que o pedido é seu.</p>
+    <label>E-mail <input id="email" type="email" autocomplete="email" required></label>
+    <label>Senha <input id="senha" type="password" autocomplete="current-password" required></label>
+    <button id="entrarBtn" class="btn" type="submit">Entrar</button>
+  </form>
+  <div id="pedido" hidden>
+    <label><input id="confirma" type="checkbox"> Entendi que, ao devolver, o acesso ao app é encerrado na hora.</label>
+    <p><button id="pedirBtn" class="btn" type="button">Pedir reembolso agora</button></p>
+  </div>
+  <p id="msg" role="status" aria-live="polite"></p>
+  <p class="muted">Não consegue pelo site? Escreva para <a href="mailto:pires.softwares@gmail.com?subject=Pedido%20de%20reembolso%20-%20Rota%20Segura">pires.softwares@gmail.com</a> com o assunto “Pedido de reembolso - Rota Segura”.</p>
+<script type="module" src="reembolso.js"></script>
+
+  <h2>O que acontece depois</h2>
+  <ul>
+    <li>Ao pedir, o acesso ao app é encerrado na hora.</li>
+    <li>O valor volta pela mesma forma de pagamento (Pix ou cartão), pelo Mercado Pago. O prazo para o dinheiro aparecer depende do meio de pagamento.</li>
+    <li>Os alertas e contatos cadastrados deixam de funcionar junto com o acesso.</li>
+  </ul>
+  <p class="muted"><a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Privacidade</a></p>
+</main>
+<footer class="wrap muted">
+  <p class="versao">App Android: versão <span data-versao>—</span></p>
+  <p><a href="./">Início</a> · <a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Privacidade</a> · <a href="tutorial.html">Tutoriais</a></p>
+  <p class="criado">Criado por <b>Pires Softwares</b> · <a href="mailto:pires.softwares@gmail.com">pires.softwares@gmail.com</a></p>
+</footer>
+<script src="versao.js" defer></script>
+</body>
+</html>
