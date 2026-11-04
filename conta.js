@@ -84,6 +84,36 @@ onAuthStateChanged(auth, user => {
   carregarConta();
 });
 
+// Confere o pagamento no Worker (que fala com o Mercado Pago). Devolve true se o plano já foi liberado.
+async function conferir() {
+  try {
+    const res = await fetch(`${WORKER_URL}/verificar`, { method: "POST", headers: { Authorization: await token() } });
+    if (!res.ok) return false;
+    return !!(await res.json()).ok;
+  } catch { return false; }
+}
+// Confere sozinho a cada 30 s, por até 5 min, enquanto a página estiver aberta. O servidor também confere (cron).
+let conferindo = false;
+function iniciarConferencia() {
+  if (conferindo) return;
+  conferindo = true;
+  let tentativas = 0;
+  const t = setInterval(async () => {
+    tentativas++;
+    if ((await conferir()) || tentativas >= 10) { clearInterval(t); conferindo = false; }
+  }, 30000);
+}
+$("jaPagueiBtn").onclick = async () => {
+  const btn = $("jaPagueiBtn");
+  btn.disabled = true;
+  $("jaPagueiMsg").textContent = "Conferindo...";
+  const liberou = await conferir();
+  $("jaPagueiMsg").textContent = liberou
+    ? "Pagamento reconhecido! Seu plano já está ativo."
+    : "Ainda não apareceu. Aguarde alguns minutos e toque de novo. Se o valor foi cobrado e não liberar, fale com a gente.";
+  btn.disabled = false;
+};
+
 // Início, próxima cobrança e pagamentos vêm do Worker (lidos do Mercado Pago).
 const STATUS_PAGAMENTO = { processed: "Paga", approved: "Paga", cancelled: "Cancelada", rejected: "Recusada" };
 async function carregarConta() {
@@ -128,6 +158,9 @@ function render(d) {
   $("plano").textContent = NOMES[d.plano] || (ativo ? "Completo" : "Gratuito");
   $("criada").textContent = d.createdAt?.toDate ? data(d.createdAt.toDate()) : "—";
   $("validade").textContent = until ? data(until) : "—";
+  // Sem plano ativo: mostra o aviso com "Já paguei". Só confere sozinho quem começou um pagamento (checkoutEm).
+  $("alertaPagamento").hidden = ativo;
+  if (!ativo && d.checkoutEm) iniciarConferencia();
 
   let texto, tom = "";
   if (!ativo) {
