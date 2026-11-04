@@ -60,7 +60,7 @@ $("pedirBtn").onclick = async () => {
       return;
     }
     if (dados.error === "login" || dados.error === "reauth") { mostrarLogin(); say(MENSAGENS.reauth); return; }
-    say((MENSAGENS[dados.error] || MENSAGENS.mp) + (dados.motivo ? ` (detalhe: ${dados.motivo})` : ""));
+    say(MENSAGENS[dados.error] || MENSAGENS.mp);
   } catch {
     say(MENSAGENS.mp);
   } finally {
