@@ -43,10 +43,10 @@ fetch(`${WORKER_URL}/precos`).then(r => r.ok ? r.json() : Promise.reject()).then
   $("economia").textContent = economia > 0 ? `Você economiza R$ ${brl(economia)} por ano` : "";
 }).catch(() => {});
 
-const CRIADA = "Se o e-mail estiver livre, criamos a conta e enviamos o link de confirmação. Confirme pelo e-mail e depois toque em “Já tenho conta: entrar”.";
+const CRIADA = "Conta criada! Enviamos um link de confirmação para o seu e-mail. Abra o e-mail e toque no link. Não achou? Olhe na caixa de spam ou em promoções. Depois toque em “Já confirmei: entrar”.";
 const ERROS = {
   "auth/invalid-credential": "E-mail ou senha incorretos.",
-  "auth/email-already-in-use": CRIADA,
+  "auth/email-already-in-use": "Esse e-mail já tem conta. Toque em “Já tenho conta: entrar”.",
   "auth/weak-password": "A senha precisa ter pelo menos 8 caracteres, com letras e números.",
   "auth/invalid-email": "E-mail inválido.",
   "auth/too-many-requests": "Muitas tentativas. Espere alguns minutos.",
@@ -85,7 +85,13 @@ $("criar").onclick = () => {
   say("");
   createUserWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value)
     .then(c => sendEmailVerification(c.user))
-    .then(() => say(CRIADA))
+    .then(() => {
+      // Depois de criar, sai o botão Criar conta e fica em destaque o Entrar (com o mesmo e-mail e senha).
+      $("criar").hidden = true;
+      $("entrar").textContent = "Já confirmei: entrar";
+      $("entrar").classList.remove("sec");
+      say(CRIADA);
+    })
     .catch(erro);
 };
 
