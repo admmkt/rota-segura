@@ -116,7 +116,7 @@ $("jaPagueiBtn").onclick = async () => {
 };
 
 // Início, próxima cobrança e pagamentos vêm do Worker (lidos do Mercado Pago).
-const STATUS_PAGAMENTO = { processed: "Paga", approved: "Paga", cancelled: "Cancelada", rejected: "Recusada" };
+const STATUS_PAGAMENTO = { processed: "Paga", approved: "Paga", cancelled: "Cancelada", rejected: "Recusada", refunded: "Reembolsada", reembolso: "Reembolso" };
 async function carregarConta() {
   try {
     const res = await fetch(`${WORKER_URL}/conta`, { method: "POST", headers: { Authorization: await token() } });
@@ -186,7 +186,7 @@ function render(d) {
 }
 
 // Recibo de exibição: montado com os dados do pagamento que o servidor devolveu. Não é nota fiscal.
-const DESCRICAO = { Anual: "Plano anual (12 meses)", Mensal: "Plano mensal (renovação)" };
+const DESCRICAO = { Anual: "Plano anual (12 meses)", Mensal: "Plano mensal (renovação)", Reembolso: "Reembolso (devolvido ao meio de pagamento usado na compra)" };
 function mostrarRecibo(p) {
   const valor = `R$ ${p.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
   $("reciboNum").textContent = p.id || "—";
