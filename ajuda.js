@@ -29,7 +29,7 @@
     contratar: { texto: () => `1) Escolha um plano na página Comprar.\n2) Crie sua conta com e-mail e senha (mínimo 8 caracteres, com letras e números).\n3) Confirme o link que enviamos ao seu e-mail. Se não chegar, olhe a caixa de spam.\n4) Pague com Pix ou cartão pelo Mercado Pago.\n5) Abra o app e entre com o mesmo e-mail.\n\n${valores()}`, opcoes: [
       { t: "Ir para Comprar", href: "comprar.html" },
     ] },
-    pagamento: { texto: "Depois de pagar, o plano é liberado sozinho em alguns minutos.\nSe ainda não apareceu: entre em Minha conta e toque em Já paguei. Se continuar sem liberar, fale com a equipe e tenha em mãos o comprovante do Mercado Pago.", opcoes: [
+    pagamento: { texto: "Depois de pagar, o plano é liberado sozinho em alguns minutos.\nSe ainda não apareceu: entre em Minha conta e toque em Já paguei — conferir. Se continuar sem liberar, fale com a equipe e tenha em mãos o comprovante do Mercado Pago.", opcoes: [
       { t: "Ir para Minha conta", href: "conta.html" },
       { t: "Falar com a equipe", ir: "humano" },
     ] },
@@ -39,7 +39,7 @@
     cancelar: { texto: "Cancelar a renovação (plano mensal): entre em Minha conta, toque em Cancelar renovação e confirme sua senha. Você continua com acesso até o fim do período já pago e não há novas cobranças.\n\nQuer trocar o mensal pelo anual? Em Minha conta, toque em Trocar para o plano anual.\n\nO plano anual não renova sozinho, então não há o que cancelar.", opcoes: [
       { t: "Ir para Minha conta", href: "conta.html" },
     ] },
-    reembolso: { texto: "Você pode desistir em até 7 dias da contratação e receber de volta o valor pago (Código de Defesa do Consumidor).\n\nEntre na página Pedir reembolso, marque a caixinha e toque em Pedir reembolso agora. O acesso ao app é encerrado na hora. O valor volta pela mesma forma de pagamento; o prazo depende do Mercado Pago.\n\nPassou de 7 dias? Fale com a equipe.", opcoes: [
+    reembolso: { texto: "Você pode desistir em até 7 dias da contratação e receber de volta o valor pago (Código de Defesa do Consumidor).\n\nEntre na página Pedir reembolso com o e-mail e a senha da conta, marque a caixinha e toque em Pedir reembolso agora. O acesso ao app é encerrado na hora. O valor volta pela mesma forma de pagamento; o prazo depende do Mercado Pago.\n\nPassou de 7 dias? Fale com a equipe.", opcoes: [
       { t: "Ir para Pedir reembolso", href: "reembolso.html" },
       { t: "Falar com a equipe", ir: "humano" },
     ] },
@@ -120,4 +120,7 @@
   };
   botao.onclick = () => (painel.hidden ? abrir() : (painel.hidden = true));
   fechar.onclick = () => { painel.hidden = true; botao.focus(); };
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !painel.hidden) { painel.hidden = true; botao.focus(); }
+  });
 })();
