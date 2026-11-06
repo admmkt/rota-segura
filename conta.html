@@ -15,7 +15,7 @@
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=7">
 <link rel="stylesheet" href="comprar.css">
 <script type="module" src="conta.js"></script>
 </head>
@@ -81,10 +81,6 @@
       <p id="jaPagueiMsg" class="status"></p>
     </div>
 
-    <div class="loja" role="note">
-      <h3>Vendido direto pelo site, por um preço mais baixo</h3>
-      <p>O Rota Segura <b>não está na Play Store</b>. Vendemos direto pelo site porque, sem a comissão cobrada pelas lojas de apps, o preço fica mais baixo para você. Baixe o app por aqui e instale no seu Android. Por ser fora da loja, o Android pode mostrar aviso de <b>fonte desconhecida</b>. Isso é esperado: o app é assinado com a assinatura de desenvolvedor Android da Pires Softwares, registrada e segura.</p>
-    </div>
     <a id="baixarBtn" class="acao" href="https://github.com/admmkt/rota-segura/releases/latest/download/RotaSegura.apk">Baixar o Rota Segura</a>
     <a id="comprarBtn" class="acao" href="comprar.html" hidden>Escolher um plano</a>
     <button id="cancelarBtn" class="acao sec" type="button" hidden>Cancelar renovação</button>
@@ -103,6 +99,7 @@
       </label>
       <button id="chaveBtn" class="acao sec" type="button">Ativar</button>
     </details>
+    <button id="exportarBtn" class="acao sec" type="button">Baixar meus dados</button>
     <button id="excluirBtn" class="acao perigo" type="button">Excluir minha conta</button>
   </section>
 

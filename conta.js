@@ -116,7 +116,7 @@ $("jaPagueiBtn").onclick = async () => {
 };
 
 // Início, próxima cobrança e pagamentos vêm do Worker (lidos do Mercado Pago).
-const STATUS_PAGAMENTO = { processed: "Paga", approved: "Paga", cancelled: "Cancelada", rejected: "Recusada", refunded: "Reembolsada", reembolso: "Reembolso" };
+const STATUS_PAGAMENTO = { processed: "Paga", approved: "Paga", cancelled: "Cancelada", rejected: "Recusada" };
 async function carregarConta() {
   try {
     const res = await fetch(`${WORKER_URL}/conta`, { method: "POST", headers: { Authorization: await token() } });
@@ -186,7 +186,7 @@ function render(d) {
 }
 
 // Recibo de exibição: montado com os dados do pagamento que o servidor devolveu. Não é nota fiscal.
-const DESCRICAO = { Anual: "Plano anual (12 meses)", Mensal: "Plano mensal (renovação)", Reembolso: "Reembolso (devolvido ao meio de pagamento usado na compra)" };
+const DESCRICAO = { Anual: "Plano anual (12 meses)", Mensal: "Plano mensal (renovação)" };
 function mostrarRecibo(p) {
   const valor = `R$ ${p.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
   $("reciboNum").textContent = p.id || "—";
@@ -242,6 +242,28 @@ $("chaveBtn").onclick = async () => {
     say("Não foi possível conferir a chave agora. Tente de novo.");
   }
   ocupar(btn, false);
+};
+
+// Baixar meus dados (LGPD, Art. 18): arquivo JSON com a conta, os vínculos e os alertas.
+$("exportarBtn").onclick = async () => {
+  const btn = $("exportarBtn");
+  ocupar(btn, true);
+  say("");
+  try {
+    const res = await fetch(`${WORKER_URL}/exportar`, { method: "POST", headers: { Authorization: await token() } });
+    if (!res.ok) throw new Error();
+    const url = URL.createObjectURL(new Blob([JSON.stringify(await res.json(), null, 2)], { type: "application/json" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "meus-dados-rota-segura.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    say("Seus dados foram baixados em um arquivo JSON.");
+  } catch {
+    say("Não foi possível gerar seus dados agora. Tente de novo.");
+  } finally {
+    ocupar(btn, false);
+  }
 };
 
 // Excluir conta: cancela a assinatura; se houver período pago, apaga depois dele (regra do Worker).
