@@ -34,7 +34,7 @@ fetch(`${WORKER_URL}/precos`).then(r => r.ok ? r.json() : Promise.reject()).then
     $("promoNome").textContent = p.promoNome || "Promoção";
     $("promoBannerPreco").textContent = `R$ ${brl(anual)}`;
     $("promoBannerAntigo").textContent = `R$ ${brl(p.anual)}`;
-    $("promoContagem").textContent = dia ? (dias > 1 ? `faltam ${dias} dias · até ${dia}` : `até ${dia}`) : "";
+    $("promoContagem").textContent = dia ? (dias > 1 ? `válida por mais ${dias} dias · até ${dia}` : `até ${dia}`) : "";
     $("promoAte").textContent = dia ? ` Preço promocional até ${dia}.` : "";
     $("descPct").textContent = `−${Math.round((1 - anual / p.anual) * 100)}%`;
     // Cronômetro ao vivo até o fim da promoção (só existe na página inicial de novembro).

@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#0A0D0B">
 <meta name="description" content="Botão de pânico que dispara um alarme de sirene no celular de quem você confia, com sua localização.">
 <script src="antiframe.js"></script>
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=7">
 <script src="cena.js?v=4" defer></script>
 <script type="module" src="app.js"></script>
 </head>
@@ -91,6 +91,7 @@
       <h1 id="abre-t">Em perigo, um toque avisa quem você confia.</h1>
       <p class="abre-preco">Plano anual por <b id="promoBannerPreco">R$ 59,90</b> <s id="promoBannerAntigo">R$ 79,90</s></p>
       <p class="nov-chip"><span class="nov-tag" id="promoNome">Black November</span> <span id="promoContagem">até 30/11</span></p>
+      <p class="eyebrow">A oferta termina em</p>
       <div class="cronometro" role="timer" aria-label="Tempo que falta para o fim da oferta">
         <div><b id="cdDias">00</b><small>dias</small></div>
         <div><b id="cdHoras">00</b><small>horas</small></div>
@@ -126,13 +127,6 @@
       <a class="btn ghost" href="tutorial.html#instalar">Como instalar</a>
     </div>
   </section>
-
-  <div class="wrap">
-    <div class="loja" role="note">
-      <h3>Vendido direto pelo site, por um preço mais baixo</h3>
-      <p>O Rota Segura <b>não está na Play Store</b>. Vendemos direto por aqui porque, sem a comissão cobrada pelas lojas de apps, conseguimos manter o preço baixo para você. O app é baixado pelo site e instalado no seu Android. Por ser fora da loja, o Android pode mostrar aviso de <b>fonte desconhecida</b>. Isso é esperado: o app é assinado com a assinatura de desenvolvedor Android da Pires Softwares, registrada e segura.</p>
-    </div>
-  </div>
 
   <section id="por-dentro" class="wrap passeio" aria-labelledby="pd-titulo">
     <h2 id="pd-titulo">Por dentro do app</h2>
@@ -193,7 +187,7 @@
       <div class="plan">
         <h3>Gratuito</h3>
         <p class="price">R$ 0</p>
-        <p>Recebe os alertas dos seus contatos. Ideal para quem cuida.</p>
+        <p>Só recebe os alertas dos seus contatos. <b>Não precisa assinar nada.</b></p>
       </div>
       <div class="plan">
         <h3>Mensal</h3>
@@ -213,6 +207,10 @@
         <p class="price"><s id="precoAntigo" class="antigo" hidden>R$ 79,90</s> R$ <span id="precoAnual">79,90</span></p>
         <p>Pagamento único por 12 meses, via Pix ou cartão, sem renovação automática. Equivale a ~R$ <span id="equiv">6,66</span>/mês.<span id="promoAte"></span></p>
       </div>
+    </div>
+    <div class="quem-recebe">
+      <p><b>Só vai receber alertas?</b> Você não precisa assinar. Crie a conta grátis, aceite o pedido de quem quer te incluir, e pronto: quando alguém da sua lista tocar no botão, seu celular toca a sirene e mostra onde a pessoa está.</p>
+      <p><b>Quer também tocar o botão?</b> Aí você assina o mensal ou o anual, e pode cadastrar até 3 contatos.</p>
     </div>
     <p class="cta"><a class="btn" href="comprar.html">Quero comprar — passo a passo</a></p>
   </section>
