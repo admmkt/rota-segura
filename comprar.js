@@ -84,8 +84,28 @@ $("login").onsubmit = e => {
     .catch(erro)
     .finally(() => ocupar(b, false));
 };
+// Domínios comuns: se o digitado estiver a até 2 letras de um deles (gemail.com, gamil.com, gmail.con), bloqueia o cadastro.
+const DOMINIOS_COMUNS = ["gmail.com", "hotmail.com", "outlook.com", "outlook.com.br", "icloud.com", "yahoo.com", "yahoo.com.br", "live.com", "msn.com", "uol.com.br", "bol.com.br", "terra.com.br", "ig.com.br"];
+function distancia(a, b) {
+  let ant = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const atu = [i];
+    for (let j = 1; j <= b.length; j++) atu[j] = Math.min(ant[j] + 1, atu[j - 1] + 1, ant[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    ant = atu;
+  }
+  return ant[b.length];
+}
+function dominioParecidoComo(email) {
+  const dom = email.split("@")[1] || "";
+  if (DOMINIOS_COMUNS.includes(dom) || /\.[a-z]{2}$/.test(dom)) return null; // .ar, .bo etc. são domínios reais
+  let melhor = null, dist = 9;
+  for (const c of DOMINIOS_COMUNS) { const d = distancia(dom, c); if (d < dist) { dist = d; melhor = c; } }
+  return dist <= 2 ? melhor : null;
+}
 $("criar").onclick = () => {
   if (!$("login").reportValidity()) return;
+  const sugestao = dominioParecidoComo($("email").value.trim().toLowerCase());
+  if (sugestao) return say(`O domínio do e-mail parece errado. Você quis dizer "${sugestao}"? Corrija o e-mail antes de criar a conta.`);
   say("");
   const b = $("criar");
   ocupar(b, true);
